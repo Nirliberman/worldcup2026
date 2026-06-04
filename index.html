@@ -1,0 +1,1965 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מונדיאל 2026 – לוח משחקים מלא</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#FFD700">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="מונדיאל 2026">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#FFD700;--gold2:#FFA500;--dark:#0a0a0f;--darker:#050508;--card:#111118;--card2:#18181f;--border:#2a2a3a;--text:#e8e8f0;--muted:#7070a0;--green:#00e676;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--darker);color:var(--text);font-family:'Heebo',sans-serif;direction:rtl;}
+.hero{background:linear-gradient(160deg,#0d0d1a,#0a0a14,#12090a);border-bottom:1px solid var(--border);padding:34px 20px 22px;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(255,215,0,0.08) 0%,transparent 65%);pointer-events:none;}
+.hero-ball{font-size:52px;line-height:1;margin-bottom:8px;animation:spin3d 8s linear infinite;display:inline-block;}
+@keyframes spin3d{0%{transform:rotateY(0deg)}100%{transform:rotateY(360deg)}}
+.hero h1{font-family:'Bebas Neue',cursive;font-size:clamp(34px,8vw,72px);letter-spacing:4px;background:linear-gradient(135deg,#FFD700,#FFA500,#FFD700);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;margin-bottom:6px;}
+.hero-sub{font-size:13px;color:var(--muted);letter-spacing:2px;margin-bottom:14px;}
+.hero-stats{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+.hero-stat{background:rgba(255,215,0,0.07);border:1px solid rgba(255,215,0,0.18);border-radius:50px;padding:5px 16px;font-size:12px;color:var(--gold);}
+.hero-stat span{color:var(--muted);margin-left:4px;}
+.fav-banner{background:linear-gradient(90deg,#0d0d1a,#12121f,#0d0d1a);border-bottom:1px solid var(--border);padding:10px 20px;display:flex;gap:8px;overflow-x:auto;justify-content:center;flex-wrap:wrap;}
+.fav-chip{display:flex;align-items:center;gap:5px;background:rgba(255,215,0,0.06);border:1px solid rgba(255,215,0,0.15);border-radius:50px;padding:4px 10px;font-size:12px;white-space:nowrap;}
+.fav-chip .odds{color:var(--gold);font-weight:700;}
+.tabs{display:flex;gap:2px;padding:12px 20px 0;border-bottom:1px solid var(--border);overflow-x:auto;background:var(--dark);justify-content:center;flex-wrap:wrap;}
+.tab-btn{background:none;border:none;color:var(--muted);font-family:'Heebo',sans-serif;font-size:13px;font-weight:700;padding:9px 14px;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all 0.2s;letter-spacing:1px;}
+.tab-btn:hover{color:var(--text);}
+.tab-btn.active{color:var(--gold);border-bottom-color:var(--gold);}
+.group-filter{display:flex;gap:5px;padding:12px 16px;flex-wrap:wrap;background:var(--dark);border-bottom:1px solid var(--border);justify-content:center;}
+.gf-btn{background:none;border:1px solid var(--border);color:var(--muted);font-family:'Heebo',sans-serif;font-size:11px;font-weight:700;padding:4px 11px;cursor:pointer;border-radius:50px;transition:all 0.2s;letter-spacing:1px;}
+.gf-btn.active{background:rgba(255,215,0,0.1);border-color:var(--gold);color:var(--gold);}
+.content{max-width:1100px;margin:0 auto;padding:14px 12px 60px;}
+.phase-section{display:none;}
+.phase-section.active{display:block;}
+.day-group{margin-bottom:20px;}
+.day-header{display:flex;align-items:center;gap:10px;font-size:10px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;padding:10px 0 6px;}
+.day-header::before{content:'';width:24px;height:1px;background:var(--border);}
+.day-header::after{content:'';flex:1;height:1px;background:var(--border);}
+.match-card{background:var(--card);border:1px solid var(--border);border-radius:10px;margin-bottom:7px;overflow:hidden;transition:border-color 0.2s,transform 0.15s;}
+.match-card:hover{border-color:rgba(255,215,0,0.3);transform:translateY(-1px);}
+.match-card.hidden{display:none;}
+.mh{display:grid;grid-template-columns:54px 1fr 76px 108px;align-items:center;padding:10px 13px;gap:8px;}
+@media(max-width:600px){.mh{grid-template-columns:46px 1fr 68px;}.venue-info{display:none;}}
+.mbadge{font-size:10px;letter-spacing:1px;color:var(--gold);background:rgba(255,215,0,0.08);border:1px solid rgba(255,215,0,0.2);border-radius:4px;padding:2px 5px;text-align:center;}
+.mteams{display:flex;align-items:center;gap:7px;justify-content:center;}
+.tb{display:flex;align-items:center;gap:5px;}
+.tb.away{flex-direction:row-reverse;}
+.tf{font-size:19px;flex-shrink:0;}
+.tn{font-weight:700;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.vs{font-family:'Bebas Neue',cursive;font-size:15px;color:var(--muted);flex-shrink:0;}
+.mtb{text-align:center;}
+.mtil{font-family:'Bebas Neue',cursive;font-size:18px;color:var(--gold);letter-spacing:1px;line-height:1;}
+.mtsub{font-size:10px;color:var(--muted);}
+.venue-info{font-size:11px;color:var(--muted);}
+.odds-bar{background:var(--card2);border-top:1px solid var(--border);padding:7px 13px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.ol{font-size:10px;color:var(--muted);letter-spacing:1px;min-width:38px;}
+.ot{flex:1;min-width:140px;display:flex;border-radius:4px;overflow:hidden;height:17px;}
+.oh{background:linear-gradient(90deg,#1a3a5c,#1e4570);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#7ec8f7;}
+.od{background:#1c1c2a;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--muted);}
+.oa{background:linear-gradient(90deg,#3a1a1a,#501e1e);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#f78080;}
+.on{font-size:11px;color:var(--muted);flex-shrink:0;}
+.stitle{font-family:'Bebas Neue',cursive;font-size:24px;letter-spacing:3px;color:var(--gold);margin:22px 0 10px;display:flex;align-items:center;gap:10px;}
+.stitle::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--gold),transparent);}
+.ko-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:13px 15px;margin-bottom:7px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+.ko-desc{font-size:14px;font-weight:700;flex:1;min-width:160px;}
+.ko-sub{font-size:11px;color:var(--muted);margin-top:3px;font-weight:400;}
+.sg{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:12px;margin-top:12px;}
+.sc{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;}
+.sct{font-size:10px;letter-spacing:2px;color:var(--muted);margin-bottom:12px;text-transform:uppercase;}
+.sr{display:flex;align-items:center;gap:7px;margin-bottom:8px;}
+.srk{font-family:'Bebas Neue',cursive;font-size:16px;color:var(--gold);min-width:20px;text-align:center;}
+.sf{font-size:17px;}
+.sn{font-size:13px;font-weight:700;flex:1;}
+.sp{font-size:13px;font-weight:700;color:var(--green);min-width:36px;}
+.pw{flex:1;height:4px;background:var(--border);border-radius:2px;}
+.pb{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--gold),var(--gold2));}
+.footer{text-align:center;padding:24px 20px;color:var(--muted);font-size:12px;border-top:1px solid var(--border);letter-spacing:1px;}
+
+.team-filter-bar{background:var(--dark);border-bottom:1px solid var(--border);padding:10px 14px;display:none;gap:8px;align-items:center;flex-wrap:wrap;}
+.team-filter-bar.visible{display:flex;}
+.tf-search{position:relative;flex:1;min-width:200px;}
+.tf-search input{width:100%;background:#1a1a28;border:1px solid var(--border);color:var(--text);font-family:'Heebo',sans-serif;font-size:13px;padding:7px 36px 7px 12px;border-radius:8px;outline:none;direction:rtl;}
+.tf-search input:focus{border-color:rgba(255,215,0,0.4);}
+.tf-search input::placeholder{color:var(--muted);}
+.tf-search .search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:14px;pointer-events:none;}
+.tf-suggestions{position:absolute;top:calc(100% + 4px);right:0;left:0;background:#1a1a28;border:1px solid rgba(255,215,0,0.2);border-radius:8px;z-index:100;max-height:220px;overflow-y:auto;display:none;}
+.tf-suggestions.open{display:block;}
+.tf-sug-item{padding:8px 12px;font-size:13px;cursor:pointer;border-bottom:1px solid var(--border);}
+.tf-sug-item:last-child{border-bottom:none;}
+.tf-sug-item:hover,.tf-sug-item.highlighted{background:rgba(255,215,0,0.08);color:var(--gold);}
+.tf-flag{margin-left:6px;font-size:16px;}
+.tf-clear{background:rgba(255,80,80,0.1);border:1px solid rgba(255,80,80,0.3);color:#ff8080;font-family:'Heebo',sans-serif;font-size:12px;padding:6px 12px;border-radius:8px;cursor:pointer;white-space:nowrap;}
+.tf-clear:hover{background:rgba(255,80,80,0.2);}
+
+/* Team view */
+#team-view{display:none;max-width:1100px;margin:0 auto;padding:14px 12px 60px;}
+#team-view.active{display:block;}
+.tv-header{background:linear-gradient(135deg,#0d0d1a,#12121f);border:1px solid rgba(255,215,0,0.25);border-radius:12px;padding:18px 20px;margin-bottom:18px;display:flex;align-items:center;gap:14px;}
+.tv-flag-big{font-size:44px;line-height:1;}
+.tv-title{font-family:'Bebas Neue',cursive;font-size:30px;letter-spacing:2px;color:var(--gold);line-height:1;}
+.tv-subtitle{font-size:12px;color:var(--muted);margin-top:4px;}
+.tv-stats{margin-right:auto;display:flex;gap:12px;flex-wrap:wrap;}
+.tv-stat{text-align:center;background:rgba(255,215,0,0.06);border:1px solid rgba(255,215,0,0.15);border-radius:8px;padding:6px 14px;}
+.tv-stat-num{font-family:'Bebas Neue',cursive;font-size:22px;color:var(--gold);}
+.tv-stat-lbl{font-size:10px;color:var(--muted);letter-spacing:1px;}
+
+.tv-section-label{font-size:11px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin:16px 0 8px;display:flex;align-items:center;gap:8px;}
+.tv-section-label::after{content:'';flex:1;height:1px;background:var(--border);}
+.tv-section-label.future::before{content:'🔜 ';}
+.tv-section-label.past::before{content:'✅ ';}
+
+/* Past match result overlay */
+.result-overlay{background:var(--card2);border-top:1px solid var(--border);padding:6px 13px;display:flex;align-items:center;justify-content:space-between;gap:8px;}
+.result-score{font-family:'Bebas Neue',cursive;font-size:26px;color:var(--gold);letter-spacing:2px;}
+.result-label{font-size:11px;color:var(--muted);}
+.result-badge{font-size:11px;padding:3px 10px;border-radius:50px;font-weight:700;}
+.result-badge.win{background:rgba(0,230,118,0.12);color:#00e676;border:1px solid rgba(0,230,118,0.3);}
+.result-badge.draw{background:rgba(255,215,0,0.1);color:var(--gold);border:1px solid rgba(255,215,0,0.25);}
+.result-badge.loss{background:rgba(255,61,61,0.1);color:#ff8080;border:1px solid rgba(255,61,61,0.25);}
+
+.future-badge{background:rgba(76,195,247,0.08);border-top:1px solid var(--border);padding:5px 13px;font-size:11px;color:#4fc3f7;letter-spacing:1px;}
+.ch-row{display:flex;gap:5px;flex-wrap:wrap;margin-top:4px;}
+.ch-free{font-size:10px;font-weight:700;color:#66bb6a;background:rgba(102,187,106,0.1);border:1px solid rgba(102,187,106,0.35);border-radius:4px;padding:2px 7px;white-space:nowrap;letter-spacing:0;}
+.ch-paid{font-size:10px;color:#7090b0;background:rgba(79,120,160,0.08);border:1px solid rgba(79,120,160,0.22);border-radius:4px;padding:2px 7px;white-space:nowrap;letter-spacing:0;}
+.mtsub-day{font-size:10px;color:var(--muted);letter-spacing:0;}
+.shabbat-strip{background:linear-gradient(90deg,rgba(255,160,0,0.13),rgba(255,120,0,0.07));border-top:2px solid rgba(255,160,0,0.5);padding:7px 13px;font-size:12px;color:#ffb300;display:flex;align-items:center;gap:7px;letter-spacing:0.3px;font-weight:700;}
+.shabbat-strip em{font-style:normal;font-weight:400;font-size:11px;color:#cc8800;}
+.match-card.is-shabbat{border-color:rgba(255,160,0,0.55)!important;}
+.ko-card.is-shabbat{border-color:rgba(255,160,0,0.55)!important;}
+.ko-shabbat-note{font-size:11px;color:#ffb300;font-weight:700;margin-top:5px;display:flex;align-items:center;gap:5px;}
+.ko-ch-row{display:flex;gap:5px;flex-wrap:wrap;margin-top:5px;}
+.ko-ch-free{font-size:10px;font-weight:700;color:#66bb6a;background:rgba(102,187,106,0.1);border:1px solid rgba(102,187,106,0.35);border-radius:4px;padding:2px 7px;}
+.ko-ch-paid{font-size:10px;color:#7090b0;background:rgba(79,120,160,0.08);border:1px solid rgba(79,120,160,0.22);border-radius:4px;padding:2px 7px;}
+</style>
+
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load', ()=>{
+    navigator.serviceWorker.register('./sw.js').then(r=>console.log('SW registered')).catch(e=>console.log('SW error',e));
+  });
+}
+</script>
+</head>
+<body>
+<div class="hero">
+  <div class="hero-ball">⚽</div>
+  <h1>WORLD CUP 2026</h1>
+  <div class="hero-sub">לוח משחקים מלא · 72 משחקי שלב בתים · שעות ישראל</div>
+  <div class="hero-stats">
+    <div class="hero-stat"><span>פתיחה</span> 11.6.2026</div>
+    <div class="hero-stat"><span>גמר</span> 19.7.2026</div>
+    <div class="hero-stat"><span>משחקים</span> 104</div>
+    <div class="hero-stat"><span>נבחרות</span> 48</div>
+    <div class="hero-stat"><span>בתים</span> A–L</div>
+  </div>
+</div>
+<div class="fav-banner">
+  <div class="fav-chip">🇪🇸 ספרד <span class="odds">17.1%</span></div>
+  <div class="fav-chip">🇫🇷 צרפת <span class="odds">16.6%</span></div>
+  <div class="fav-chip">🏴󠁧󠁢󠁥󠁮󠁧󠁿 אנגליה <span class="odds">11.1%</span></div>
+  <div class="fav-chip">🇦🇷 ארגנטינה <span class="odds">9.5%</span></div>
+  <div class="fav-chip">🇧🇷 ברזיל <span class="odds">8.0%</span></div>
+  <div class="fav-chip">🇩🇪 גרמניה <span class="odds">6.0%</span></div>
+  <div class="fav-chip">🇵🇹 פורטוגל <span class="odds">5.5%</span></div>
+  <div class="fav-chip">🇳🇱 הולנד <span class="odds">4.8%</span></div>
+</div>
+<div class="tabs">
+  <button class="tab-btn active" onclick="showTab('group',this)">שלב הבתים (72 משחקים)</button>
+  <button class="tab-btn" onclick="showTab('knockout',this)">שלב הנוקאאוט</button>
+  <button class="tab-btn" onclick="showTab('stats',this)">סטטיסטיקות</button>
+</div>
+<div class="group-filter" id="group-filter">
+  <button class="gf-btn active" onclick="filterGroup('all',this)">הכל</button>
+  <button class="gf-btn" onclick="filterGroup('A',this)">בית A</button>
+  <button class="gf-btn" onclick="filterGroup('B',this)">בית B</button>
+  <button class="gf-btn" onclick="filterGroup('C',this)">בית C</button>
+  <button class="gf-btn" onclick="filterGroup('D',this)">בית D</button>
+  <button class="gf-btn" onclick="filterGroup('E',this)">בית E</button>
+  <button class="gf-btn" onclick="filterGroup('F',this)">בית F</button>
+  <button class="gf-btn" onclick="filterGroup('G',this)">בית G</button>
+  <button class="gf-btn" onclick="filterGroup('H',this)">בית H</button>
+  <button class="gf-btn" onclick="filterGroup('I',this)">בית I</button>
+  <button class="gf-btn" onclick="filterGroup('J',this)">בית J</button>
+  <button class="gf-btn" onclick="filterGroup('K',this)">בית K</button>
+  <button class="gf-btn" onclick="filterGroup('L',this)">בית L</button>
+</div>
+
+<div class="team-filter-bar" id="team-filter-bar">
+  <div class="tf-search">
+    <input type="text" id="team-search-input" placeholder="חפש נבחרת..." oninput="filterSuggestions(this.value)" onkeydown="handleSearchKey(event)" autocomplete="off">
+    <span class="search-icon">🔍</span>
+    <div class="tf-suggestions" id="tf-suggestions">
+<div class="tf-sug-item" onclick="selectTeam('אוזבקיסטן')"><span class="tf-flag">🇺🇿</span>אוזבקיסטן</div>
+<div class="tf-sug-item" onclick="selectTeam('אוסטריה')"><span class="tf-flag">🇦🇹</span>אוסטריה</div>
+<div class="tf-sug-item" onclick="selectTeam('אוסטרליה')"><span class="tf-flag">🇦🇺</span>אוסטרליה</div>
+<div class="tf-sug-item" onclick="selectTeam('אורוגוואי')"><span class="tf-flag">🇺🇾</span>אורוגוואי</div>
+<div class="tf-sug-item" onclick="selectTeam('איראן')"><span class="tf-flag">🇮🇷</span>איראן</div>
+<div class="tf-sug-item" onclick="selectTeam('אלג׳יריה')"><span class="tf-flag">🇩🇿</span>אלג׳יריה</div>
+<div class="tf-sug-item" onclick="selectTeam('אנגליה')"><span class="tf-flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span>אנגליה</div>
+<div class="tf-sug-item" onclick="selectTeam('אקוודור')"><span class="tf-flag">🇪🇨</span>אקוודור</div>
+<div class="tf-sug-item" onclick="selectTeam('ארגנטינה')"><span class="tf-flag">🇦🇷</span>ארגנטינה</div>
+<div class="tf-sug-item" onclick="selectTeam('ארה״ב')"><span class="tf-flag">🇺🇸</span>ארה״ב</div>
+<div class="tf-sug-item" onclick="selectTeam('בוסניה')"><span class="tf-flag">🇧🇦</span>בוסניה</div>
+<div class="tf-sug-item" onclick="selectTeam('בלגיה')"><span class="tf-flag">🇧🇪</span>בלגיה</div>
+<div class="tf-sug-item" onclick="selectTeam('ברזיל')"><span class="tf-flag">🇧🇷</span>ברזיל</div>
+<div class="tf-sug-item" onclick="selectTeam('גאנה')"><span class="tf-flag">🇬🇭</span>גאנה</div>
+<div class="tf-sug-item" onclick="selectTeam('גרמניה')"><span class="tf-flag">🇩🇪</span>גרמניה</div>
+<div class="tf-sug-item" onclick="selectTeam('דרום אפריקה')"><span class="tf-flag">🇿🇦</span>דרום אפריקה</div>
+<div class="tf-sug-item" onclick="selectTeam('האיטי')"><span class="tf-flag">🇭🇹</span>האיטי</div>
+<div class="tf-sug-item" onclick="selectTeam('הולנד')"><span class="tf-flag">🇳🇱</span>הולנד</div>
+<div class="tf-sug-item" onclick="selectTeam('חוף השנהב')"><span class="tf-flag">🇨🇮</span>חוף השנהב</div>
+<div class="tf-sug-item" onclick="selectTeam('טורקיה')"><span class="tf-flag">🇹🇷</span>טורקיה</div>
+<div class="tf-sug-item" onclick="selectTeam('יפן')"><span class="tf-flag">🇯🇵</span>יפן</div>
+<div class="tf-sug-item" onclick="selectTeam('ירדן')"><span class="tf-flag">🇯🇴</span>ירדן</div>
+<div class="tf-sug-item" onclick="selectTeam('כף ורדה')"><span class="tf-flag">🇨🇻</span>כף ורדה</div>
+<div class="tf-sug-item" onclick="selectTeam('מצרים')"><span class="tf-flag">🇪🇬</span>מצרים</div>
+<div class="tf-sug-item" onclick="selectTeam('מקסיקו')"><span class="tf-flag">🇲🇽</span>מקסיקו</div>
+<div class="tf-sug-item" onclick="selectTeam('מרוקו')"><span class="tf-flag">🇲🇦</span>מרוקו</div>
+<div class="tf-sug-item" onclick="selectTeam('נורבגיה')"><span class="tf-flag">🇳🇴</span>נורבגיה</div>
+<div class="tf-sug-item" onclick="selectTeam('ניו זילנד')"><span class="tf-flag">🇳🇿</span>ניו זילנד</div>
+<div class="tf-sug-item" onclick="selectTeam('סנגל')"><span class="tf-flag">🇸🇳</span>סנגל</div>
+<div class="tf-sug-item" onclick="selectTeam('ספרד')"><span class="tf-flag">🇪🇸</span>ספרד</div>
+<div class="tf-sug-item" onclick="selectTeam('סקוטלנד')"><span class="tf-flag">🏴󠁧󠁢󠁳󠁣󠁴󠁿</span>סקוטלנד</div>
+<div class="tf-sug-item" onclick="selectTeam('עיראק')"><span class="tf-flag">🇮🇶</span>עיראק</div>
+<div class="tf-sug-item" onclick="selectTeam('ערב הסעודית')"><span class="tf-flag">🇸🇦</span>ערב הסעודית</div>
+<div class="tf-sug-item" onclick="selectTeam('פורטוגל')"><span class="tf-flag">🇵🇹</span>פורטוגל</div>
+<div class="tf-sug-item" onclick="selectTeam('פנמה')"><span class="tf-flag">🇵🇦</span>פנמה</div>
+<div class="tf-sug-item" onclick="selectTeam('פרגוואי')"><span class="tf-flag">🇵🇾</span>פרגוואי</div>
+<div class="tf-sug-item" onclick="selectTeam('צרפת')"><span class="tf-flag">🇫🇷</span>צרפת</div>
+<div class="tf-sug-item" onclick="selectTeam('צ׳כיה')"><span class="tf-flag">🇨🇿</span>צ׳כיה</div>
+<div class="tf-sug-item" onclick="selectTeam('קולומביה')"><span class="tf-flag">🇨🇴</span>קולומביה</div>
+<div class="tf-sug-item" onclick="selectTeam('קונגו DR')"><span class="tf-flag">🇨🇩</span>קונגו DR</div>
+<div class="tf-sug-item" onclick="selectTeam('קוראסאו')"><span class="tf-flag">🇨🇼</span>קוראסאו</div>
+<div class="tf-sug-item" onclick="selectTeam('קוריאה הד׳')"><span class="tf-flag">🇰🇷</span>קוריאה הד׳</div>
+<div class="tf-sug-item" onclick="selectTeam('קטאר')"><span class="tf-flag">🇶🇦</span>קטאר</div>
+<div class="tf-sug-item" onclick="selectTeam('קנדה')"><span class="tf-flag">🇨🇦</span>קנדה</div>
+<div class="tf-sug-item" onclick="selectTeam('קרואטיה')"><span class="tf-flag">🇭🇷</span>קרואטיה</div>
+<div class="tf-sug-item" onclick="selectTeam('שוודיה')"><span class="tf-flag">🇸🇪</span>שוודיה</div>
+<div class="tf-sug-item" onclick="selectTeam('שוויץ')"><span class="tf-flag">🇨🇭</span>שוויץ</div>
+<div class="tf-sug-item" onclick="selectTeam('תוניסיה')"><span class="tf-flag">🇹🇳</span>תוניסיה</div>
+    </div>
+  </div>
+  <button class="tf-clear" onclick="clearTeamFilter()">✕ נקה סינון</button>
+</div>
+<div id="team-view"></div>
+
+<div class="content">
+<div id="tab-group" class="phase-section active">
+<div class="day-group"><div class="day-header">יום ה׳ · 11.6 · 2 משחקים</div><div class="match-card" data-group="A"  data-teams="מקסיקו|דרום אפריקה">
+  <div class="mh">
+    <div class="mbadge" >A</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇲🇽</span><span class="tn">מקסיקו</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇿🇦</span><span class="tn">דרום אפריקה</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">22:00</div><div class="mtsub">11.6</div></div>
+    <div class="venue-info">📍 מקסיקו סיטי</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:58%">🇲🇽 58%</div><div class="od" style="width:22%">22%</div><div class="oa" style="width:20%">20% 🇿🇦</div></div>
+    <div class="on">מקסיקו מועדפת · בית משלה</div>
+  </div>
+</div><div class="match-card" data-group="A"  data-teams="קוריאה הד׳|צ׳כיה">
+  <div class="mh">
+    <div class="mbadge" >A</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇰🇷</span><span class="tn">קוריאה הד׳</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇨🇿</span><span class="tn">צ׳כיה</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">05:00</div><div class="mtsub">12.6</div></div>
+    <div class="venue-info">📍 גוודלחרה</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:40%">🇰🇷 40%</div><div class="od" style="width:26%">26%</div><div class="oa" style="width:34%">34% 🇨🇿</div></div>
+    <div class="on">משחק מאוזן · צ׳כיה קלה יותר</div>
+  </div>
+</div></div>
+<div class="day-group"><div class="day-header">שישי · 12.6 · 2 משחקים</div><div class="match-card" data-group="B"  data-teams="קנדה|בוסניה">
+  <div class="mh">
+    <div class="mbadge" >B</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇨🇦</span><span class="tn">קנדה</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇧🇦</span><span class="tn">בוסניה</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">22:00</div><div class="mtsub">12.6</div></div>
+    <div class="venue-info">📍 טורונטו</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:46%">🇨🇦 46%</div><div class="od" style="width:27%">27%</div><div class="oa" style="width:27%">27% 🇧🇦</div></div>
+    <div class="on">קנדה מועדפת · בית משלה</div>
+  </div>
+</div><div class="match-card" data-group="D"  data-teams="ארה״ב|פרגוואי">
+  <div class="mh">
+    <div class="mbadge" >D</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇺🇸</span><span class="tn">ארה״ב</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇵🇾</span><span class="tn">פרגוואי</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">04:00</div><div class="mtsub">13.6</div></div>
+    <div class="venue-info">📍 לוס אנג׳לס</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:52%">🇺🇸 52%</div><div class="od" style="width:26%">26%</div><div class="oa" style="width:22%">22% 🇵🇾</div></div>
+    <div class="on">ארה״ב מועדפת · בית משלה</div>
+  </div>
+</div></div>
+<div class="day-group"><div class="day-header">שבת · 13.6 · 4 משחקים</div><div class="match-card" data-group="B"  data-teams="קטאר|שוויץ">
+  <div class="mh">
+    <div class="mbadge" >B</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇶🇦</span><span class="tn">קטאר</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇨🇭</span><span class="tn">שוויץ</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">22:00</div><div class="mtsub">13.6</div></div>
+    <div class="venue-info">📍 סן פרנסיסקו</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:20%">🇶🇦 20%</div><div class="od" style="width:22%">22%</div><div class="oa" style="width:58%">58% 🇨🇭</div></div>
+    <div class="on">שוויץ מועדפת בפער גדול</div>
+  </div>
+</div><div class="match-card" data-group="C"  data-teams="ברזיל|מרוקו">
+  <div class="mh">
+    <div class="mbadge" >C</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇧🇷</span><span class="tn">ברזיל</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇲🇦</span><span class="tn">מרוקו</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">01:00</div><div class="mtsub">14.6</div></div>
+    <div class="venue-info">📍 ניו יורק</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:55%">🇧🇷 55%</div><div class="od" style="width:23%">23%</div><div class="oa" style="width:22%">22% 🇲🇦</div></div>
+    <div class="on">ברזיל מועדפת · מרוקו מסוכנת</div>
+  </div>
+</div><div class="match-card" data-group="C"  data-teams="האיטי|סקוטלנד">
+  <div class="mh">
+    <div class="mbadge" >C</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇭🇹</span><span class="tn">האיטי</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🏴󠁧󠁢󠁳󠁣󠁴󠁿</span><span class="tn">סקוטלנד</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">04:00</div><div class="mtsub">14.6</div></div>
+    <div class="venue-info">📍 בוסטון</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:18%">🇭🇹 18%</div><div class="od" style="width:22%">22%</div><div class="oa" style="width:60%">60% 🏴󠁧󠁢󠁳󠁣󠁴󠁿</div></div>
+    <div class="on">סקוטלנד מועדפת בבירור</div>
+  </div>
+</div><div class="match-card" data-group="D"  data-teams="אוסטרליה|טורקיה">
+  <div class="mh">
+    <div class="mbadge" >D</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇦🇺</span><span class="tn">אוסטרליה</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇹🇷</span><span class="tn">טורקיה</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">07:00</div><div class="mtsub">14.6</div></div>
+    <div class="venue-info">📍 ונקובר</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:35%">🇦🇺 35%</div><div class="od" style="width:27%">27%</div><div class="oa" style="width:38%">38% 🇹🇷</div></div>
+    <div class="on">טורקיה קלה יותר</div>
+  </div>
+</div></div>
+<div class="day-group"><div class="day-header">ראשון · 14.6 · 4 משחקים</div><div class="match-card" data-group="E"  data-teams="גרמניה|קוראסאו">
+  <div class="mh">
+    <div class="mbadge" >E</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇩🇪</span><span class="tn">גרמניה</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇨🇼</span><span class="tn">קוראסאו</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">20:00</div><div class="mtsub">14.6</div></div>
+    <div class="venue-info">📍 יוסטון</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:82%">🇩🇪 82%</div><div class="od" style="width:12%">12%</div><div class="oa" style="width:6%">6% 🇨🇼</div></div>
+    <div class="on">גרמניה – פייבוריט מוחלט</div>
+  </div>
+</div><div class="match-card" data-group="F"  data-teams="הולנד|יפן">
+  <div class="mh">
+    <div class="mbadge" >F</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇳🇱</span><span class="tn">הולנד</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇯🇵</span><span class="tn">יפן</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">23:00</div><div class="mtsub">14.6</div></div>
+    <div class="venue-info">📍 דאלאס</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:50%">🇳🇱 50%</div><div class="od" style="width:26%">26%</div><div class="oa" style="width:24%">24% 🇯🇵</div></div>
+    <div class="on">הולנד קלה · יפן מסוכנת</div>
+  </div>
+</div><div class="match-card" data-group="E"  data-teams="חוף השנהב|אקוודור">
+  <div class="mh">
+    <div class="mbadge" >E</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇨🇮</span><span class="tn">חוף השנהב</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇪🇨</span><span class="tn">אקוודור</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">02:00</div><div class="mtsub">15.6</div></div>
+    <div class="venue-info">📍 פילדלפיה</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:42%">🇨🇮 42%</div><div class="od" style="width:28%">28%</div><div class="oa" style="width:30%">30% 🇪🇨</div></div>
+    <div class="on">משחק מאוזן</div>
+  </div>
+</div><div class="match-card" data-group="F"  data-teams="תוניסיה|שוודיה">
+  <div class="mh">
+    <div class="mbadge" >F</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇹🇳</span><span class="tn">תוניסיה</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇸🇪</span><span class="tn">שוודיה</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">05:00</div><div class="mtsub">15.6</div></div>
+    <div class="venue-info">📍 מונטריי</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:28%">🇹🇳 28%</div><div class="od" style="width:28%">28%</div><div class="oa" style="width:44%">44% 🇸🇪</div></div>
+    <div class="on">שוודיה מועדפת</div>
+  </div>
+</div></div>
+<div class="day-group"><div class="day-header">שני · 15.6 · 4 משחקים</div><div class="match-card" data-group="H"  data-teams="ספרד|כף ורדה">
+  <div class="mh">
+    <div class="mbadge" >H</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇪🇸</span><span class="tn">ספרד</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇨🇻</span><span class="tn">כף ורדה</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">19:00</div><div class="mtsub">15.6</div></div>
+    <div class="venue-info">📍 אטלנטה</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:85%">🇪🇸 85%</div><div class="od" style="width:10%">10%</div><div class="oa" style="width:5%">5% 🇨🇻</div></div>
+    <div class="on">ספרד – פייבוריט מוחלט</div>
+  </div>
+</div><div class="match-card" data-group="G"  data-teams="בלגיה|מצרים">
+  <div class="mh">
+    <div class="mbadge" >G</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇧🇪</span><span class="tn">בלגיה</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇪🇬</span><span class="tn">מצרים</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">22:00</div><div class="mtsub">15.6</div></div>
+    <div class="venue-info">📍 סיאטל</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:60%">🇧🇪 60%</div><div class="od" style="width:24%">24%</div><div class="oa" style="width:16%">16% 🇪🇬</div></div>
+    <div class="on">בלגיה מועדפת</div>
+  </div>
+</div><div class="match-card" data-group="H"  data-teams="ערב הסעודית|אורוגוואי">
+  <div class="mh">
+    <div class="mbadge" >H</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇸🇦</span><span class="tn">ערב הסעודית</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇺🇾</span><span class="tn">אורוגוואי</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">01:00</div><div class="mtsub">16.6</div></div>
+    <div class="venue-info">📍 מיאמי</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:25%">🇸🇦 25%</div><div class="od" style="width:25%">25%</div><div class="oa" style="width:50%">50% 🇺🇾</div></div>
+    <div class="on">אורוגוואי מועדפת</div>
+  </div>
+</div><div class="match-card" data-group="G"  data-teams="איראן|ניו זילנד">
+  <div class="mh">
+    <div class="mbadge" >G</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇮🇷</span><span class="tn">איראן</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇳🇿</span><span class="tn">ניו זילנד</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">04:00</div><div class="mtsub">16.6</div></div>
+    <div class="venue-info">📍 לוס אנג׳לס</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:48%">🇮🇷 48%</div><div class="od" style="width:27%">27%</div><div class="oa" style="width:25%">25% 🇳🇿</div></div>
+    <div class="on">איראן מועדפת קלות</div>
+  </div>
+</div></div>
+<div class="day-group"><div class="day-header">שלישי · 16.6 · 4 משחקים</div><div class="match-card" data-group="I"  data-teams="צרפת|סנגל">
+  <div class="mh">
+    <div class="mbadge" >I</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇫🇷</span><span class="tn">צרפת</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇸🇳</span><span class="tn">סנגל</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">22:00</div><div class="mtsub">16.6</div></div>
+    <div class="venue-info">📍 ניו יורק</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:65%">🇫🇷 65%</div><div class="od" style="width:22%">22%</div><div class="oa" style="width:13%">13% 🇸🇳</div></div>
+    <div class="on">צרפת מועדפת</div>
+  </div>
+</div><div class="match-card" data-group="I"  data-teams="עיראק|נורבגיה">
+  <div class="mh">
+    <div class="mbadge" >I</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇮🇶</span><span class="tn">עיראק</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇳🇴</span><span class="tn">נורבגיה</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">01:00</div><div class="mtsub">17.6</div></div>
+    <div class="venue-info">📍 בוסטון</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:18%">🇮🇶 18%</div><div class="od" style="width:22%">22%</div><div class="oa" style="width:60%">60% 🇳🇴</div></div>
+    <div class="on">נורבגיה מועדפת</div>
+  </div>
+</div><div class="match-card" data-group="J"  data-teams="ארגנטינה|אלג׳יריה">
+  <div class="mh">
+    <div class="mbadge" >J</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇦🇷</span><span class="tn">ארגנטינה</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇩🇿</span><span class="tn">אלג׳יריה</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">04:00</div><div class="mtsub">17.6</div></div>
+    <div class="venue-info">📍 קנזס סיטי</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:75%">🇦🇷 75%</div><div class="od" style="width:16%">16%</div><div class="oa" style="width:9%">9% 🇩🇿</div></div>
+    <div class="on">ארגנטינה – פייבוריט מוחלט</div>
+  </div>
+</div><div class="match-card" data-group="J"  data-teams="אוסטריה|ירדן">
+  <div class="mh">
+    <div class="mbadge" >J</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇦🇹</span><span class="tn">אוסטריה</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇯🇴</span><span class="tn">ירדן</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">07:00</div><div class="mtsub">17.6</div></div>
+    <div class="venue-info">📍 סן פרנסיסקו</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:62%">🇦🇹 62%</div><div class="od" style="width:24%">24%</div><div class="oa" style="width:14%">14% 🇯🇴</div></div>
+    <div class="on">אוסטריה מועדפת</div>
+  </div>
+</div></div>
+<div class="day-group"><div class="day-header">רביעי · 17.6 · 4 משחקים</div><div class="match-card" data-group="K"  data-teams="פורטוגל|קונגו DR">
+  <div class="mh">
+    <div class="mbadge" >K</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇵🇹</span><span class="tn">פורטוגל</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇨🇩</span><span class="tn">קונגו DR</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">20:00</div><div class="mtsub">17.6</div></div>
+    <div class="venue-info">📍 יוסטון</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:78%">🇵🇹 78%</div><div class="od" style="width:14%">14%</div><div class="oa" style="width:8%">8% 🇨🇩</div></div>
+    <div class="on">פורטוגל מועדפת בפער גדול</div>
+  </div>
+</div><div class="match-card" data-group="L"  data-teams="אנגליה|קרואטיה">
+  <div class="mh">
+    <div class="mbadge" >L</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span><span class="tn">אנגליה</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇭🇷</span><span class="tn">קרואטיה</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">23:00</div><div class="mtsub">17.6</div></div>
+    <div class="venue-info">📍 דאלאס</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:60%">🏴󠁧󠁢󠁥󠁮󠁧󠁿 60%</div><div class="od" style="width:24%">24%</div><div class="oa" style="width:16%">16% 🇭🇷</div></div>
+    <div class="on">אנגליה מועדפת · ריבאל ישן</div>
+  </div>
+</div><div class="match-card" data-group="L"  data-teams="גאנה|פנמה">
+  <div class="mh">
+    <div class="mbadge" >L</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇬🇭</span><span class="tn">גאנה</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇵🇦</span><span class="tn">פנמה</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">02:00</div><div class="mtsub">18.6</div></div>
+    <div class="venue-info">📍 טורונטו</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:45%">🇬🇭 45%</div><div class="od" style="width:28%">28%</div><div class="oa" style="width:27%">27% 🇵🇦</div></div>
+    <div class="on">משחק מאוזן</div>
+  </div>
+</div><div class="match-card" data-group="K"  data-teams="אוזבקיסטן|קולומביה">
+  <div class="mh">
+    <div class="mbadge" >K</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇺🇿</span><span class="tn">אוזבקיסטן</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇨🇴</span><span class="tn">קולומביה</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">05:00</div><div class="mtsub">18.6</div></div>
+    <div class="venue-info">📍 מקסיקו סיטי</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:18%">🇺🇿 18%</div><div class="od" style="width:22%">22%</div><div class="oa" style="width:60%">60% 🇨🇴</div></div>
+    <div class="on">קולומביה מועדפת</div>
+  </div>
+</div></div>
+<div class="day-group"><div class="day-header">חמישי · 18.6 · 4 משחקים</div><div class="match-card" data-group="A"  data-teams="צ׳כיה|דרום אפריקה">
+  <div class="mh">
+    <div class="mbadge" >A</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇨🇿</span><span class="tn">צ׳כיה</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇿🇦</span><span class="tn">דרום אפריקה</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">19:00</div><div class="mtsub">18.6</div></div>
+    <div class="venue-info">📍 אטלנטה</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:55%">🇨🇿 55%</div><div class="od" style="width:26%">26%</div><div class="oa" style="width:19%">19% 🇿🇦</div></div>
+    <div class="on">צ׳כיה מועדפת</div>
+  </div>
+</div><div class="match-card" data-group="B"  data-teams="שוויץ|בוסניה">
+  <div class="mh">
+    <div class="mbadge" >B</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇨🇭</span><span class="tn">שוויץ</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇧🇦</span><span class="tn">בוסניה</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">22:00</div><div class="mtsub">18.6</div></div>
+    <div class="venue-info">📍 לוס אנג׳לס</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:56%">🇨🇭 56%</div><div class="od" style="width:26%">26%</div><div class="oa" style="width:18%">18% 🇧🇦</div></div>
+    <div class="on">שוויץ מועדפת</div>
+  </div>
+</div><div class="match-card" data-group="B"  data-teams="קנדה|קטאר">
+  <div class="mh">
+    <div class="mbadge" >B</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇨🇦</span><span class="tn">קנדה</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇶🇦</span><span class="tn">קטאר</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">01:00</div><div class="mtsub">19.6</div></div>
+    <div class="venue-info">📍 ונקובר</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:65%">🇨🇦 65%</div><div class="od" style="width:22%">22%</div><div class="oa" style="width:13%">13% 🇶🇦</div></div>
+    <div class="on">קנדה מועדפת בבירור</div>
+  </div>
+</div><div class="match-card" data-group="A"  data-teams="מקסיקו|קוריאה הד׳">
+  <div class="mh">
+    <div class="mbadge" >A</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇲🇽</span><span class="tn">מקסיקו</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇰🇷</span><span class="tn">קוריאה הד׳</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">04:00</div><div class="mtsub">19.6</div></div>
+    <div class="venue-info">📍 גוודלחרה</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:48%">🇲🇽 48%</div><div class="od" style="width:28%">28%</div><div class="oa" style="width:24%">24% 🇰🇷</div></div>
+    <div class="on">מקסיקו מועדפת קלות</div>
+  </div>
+</div></div>
+<div class="day-group"><div class="day-header">שישי · 19.6 · 4 משחקים</div><div class="match-card" data-group="D"  data-teams="ארה״ב|אוסטרליה">
+  <div class="mh">
+    <div class="mbadge" >D</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇺🇸</span><span class="tn">ארה״ב</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇦🇺</span><span class="tn">אוסטרליה</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">22:00</div><div class="mtsub">19.6</div></div>
+    <div class="venue-info">📍 סיאטל</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:55%">🇺🇸 55%</div><div class="od" style="width:26%">26%</div><div class="oa" style="width:19%">19% 🇦🇺</div></div>
+    <div class="on">ארה״ב מועדפת</div>
+  </div>
+</div><div class="match-card" data-group="C"  data-teams="סקוטלנד|מרוקו">
+  <div class="mh">
+    <div class="mbadge" >C</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🏴󠁧󠁢󠁳󠁣󠁴󠁿</span><span class="tn">סקוטלנד</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇲🇦</span><span class="tn">מרוקו</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">22:00</div><div class="mtsub">19.6</div></div>
+    <div class="venue-info">📍 בוסטון</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:30%">🏴󠁧󠁢󠁳󠁣󠁴󠁿 30%</div><div class="od" style="width:28%">28%</div><div class="oa" style="width:42%">42% 🇲🇦</div></div>
+    <div class="on">מרוקו מועדפת</div>
+  </div>
+</div><div class="match-card" data-group="C"  data-teams="ברזיל|האיטי">
+  <div class="mh">
+    <div class="mbadge" >C</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇧🇷</span><span class="tn">ברזיל</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇭🇹</span><span class="tn">האיטי</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">04:00</div><div class="mtsub">20.6</div></div>
+    <div class="venue-info">📍 פילדלפיה</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:88%">🇧🇷 88%</div><div class="od" style="width:8%">8%</div><div class="oa" style="width:4%">4% 🇭🇹</div></div>
+    <div class="on">ברזיל – פייבוריט מוחלט</div>
+  </div>
+</div><div class="match-card" data-group="D"  data-teams="טורקיה|פרגוואי">
+  <div class="mh">
+    <div class="mbadge" >D</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇹🇷</span><span class="tn">טורקיה</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇵🇾</span><span class="tn">פרגוואי</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">07:00</div><div class="mtsub">20.6</div></div>
+    <div class="venue-info">📍 סן פרנסיסקו</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:48%">🇹🇷 48%</div><div class="od" style="width:28%">28%</div><div class="oa" style="width:24%">24% 🇵🇾</div></div>
+    <div class="on">טורקיה מועדפת קלות</div>
+  </div>
+</div></div>
+<div class="day-group"><div class="day-header">שבת · 20.6 · 4 משחקים</div><div class="match-card" data-group="F"  data-teams="הולנד|שוודיה">
+  <div class="mh">
+    <div class="mbadge" >F</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇳🇱</span><span class="tn">הולנד</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇸🇪</span><span class="tn">שוודיה</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">20:00</div><div class="mtsub">20.6</div></div>
+    <div class="venue-info">📍 יוסטון</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:55%">🇳🇱 55%</div><div class="od" style="width:26%">26%</div><div class="oa" style="width:19%">19% 🇸🇪</div></div>
+    <div class="on">הולנד מועדפת</div>
+  </div>
+</div><div class="match-card" data-group="E"  data-teams="גרמניה|חוף השנהב">
+  <div class="mh">
+    <div class="mbadge" >E</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇩🇪</span><span class="tn">גרמניה</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇨🇮</span><span class="tn">חוף השנהב</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">23:00</div><div class="mtsub">20.6</div></div>
+    <div class="venue-info">📍 טורונטו</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:60%">🇩🇪 60%</div><div class="od" style="width:24%">24%</div><div class="oa" style="width:16%">16% 🇨🇮</div></div>
+    <div class="on">גרמניה מועדפת</div>
+  </div>
+</div><div class="match-card" data-group="E"  data-teams="אקוודור|קוראסאו">
+  <div class="mh">
+    <div class="mbadge" >E</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇪🇨</span><span class="tn">אקוודור</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇨🇼</span><span class="tn">קוראסאו</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">03:00</div><div class="mtsub">21.6</div></div>
+    <div class="venue-info">📍 קנזס סיטי</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:72%">🇪🇨 72%</div><div class="od" style="width:18%">18%</div><div class="oa" style="width:10%">10% 🇨🇼</div></div>
+    <div class="on">אקוודור מועדפת</div>
+  </div>
+</div><div class="match-card" data-group="F"  data-teams="תוניסיה|יפן">
+  <div class="mh">
+    <div class="mbadge" >F</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇹🇳</span><span class="tn">תוניסיה</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇯🇵</span><span class="tn">יפן</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">07:00</div><div class="mtsub">21.6</div></div>
+    <div class="venue-info">📍 מונטריי</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:25%">🇹🇳 25%</div><div class="od" style="width:27%">27%</div><div class="oa" style="width:48%">48% 🇯🇵</div></div>
+    <div class="on">יפן מועדפת</div>
+  </div>
+</div></div>
+<div class="day-group"><div class="day-header">ראשון · 21.6 · 4 משחקים</div><div class="match-card" data-group="H"  data-teams="ספרד|ערב הסעודית">
+  <div class="mh">
+    <div class="mbadge" >H</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇪🇸</span><span class="tn">ספרד</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇸🇦</span><span class="tn">ערב הסעודית</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">19:00</div><div class="mtsub">21.6</div></div>
+    <div class="venue-info">📍 אטלנטה</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:80%">🇪🇸 80%</div><div class="od" style="width:13%">13%</div><div class="oa" style="width:7%">7% 🇸🇦</div></div>
+    <div class="on">ספרד מועדפת בפער גדול</div>
+  </div>
+</div><div class="match-card" data-group="G"  data-teams="בלגיה|איראן">
+  <div class="mh">
+    <div class="mbadge" >G</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇧🇪</span><span class="tn">בלגיה</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇮🇷</span><span class="tn">איראן</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">22:00</div><div class="mtsub">21.6</div></div>
+    <div class="venue-info">📍 לוס אנג׳לס</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:65%">🇧🇪 65%</div><div class="od" style="width:22%">22%</div><div class="oa" style="width:13%">13% 🇮🇷</div></div>
+    <div class="on">בלגיה מועדפת</div>
+  </div>
+</div><div class="match-card" data-group="H"  data-teams="אורוגוואי|כף ורדה">
+  <div class="mh">
+    <div class="mbadge" >H</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇺🇾</span><span class="tn">אורוגוואי</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇨🇻</span><span class="tn">כף ורדה</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">01:00</div><div class="mtsub">22.6</div></div>
+    <div class="venue-info">📍 מיאמי</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:78%">🇺🇾 78%</div><div class="od" style="width:14%">14%</div><div class="oa" style="width:8%">8% 🇨🇻</div></div>
+    <div class="on">אורוגוואי מועדפת</div>
+  </div>
+</div><div class="match-card" data-group="G"  data-teams="ניו זילנד|מצרים">
+  <div class="mh">
+    <div class="mbadge" >G</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇳🇿</span><span class="tn">ניו זילנד</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇪🇬</span><span class="tn">מצרים</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">04:00</div><div class="mtsub">22.6</div></div>
+    <div class="venue-info">📍 ונקובר</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:38%">🇳🇿 38%</div><div class="od" style="width:28%">28%</div><div class="oa" style="width:34%">34% 🇪🇬</div></div>
+    <div class="on">משחק מאוזן</div>
+  </div>
+</div></div>
+<div class="day-group"><div class="day-header">שני · 22.6 · 4 משחקים</div><div class="match-card" data-group="J"  data-teams="ארגנטינה|אוסטריה">
+  <div class="mh">
+    <div class="mbadge" >J</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇦🇷</span><span class="tn">ארגנטינה</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇦🇹</span><span class="tn">אוסטריה</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">20:00</div><div class="mtsub">22.6</div></div>
+    <div class="venue-info">📍 דאלאס</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:70%">🇦🇷 70%</div><div class="od" style="width:20%">20%</div><div class="oa" style="width:10%">10% 🇦🇹</div></div>
+    <div class="on">ארגנטינה מועדפת</div>
+  </div>
+</div><div class="match-card" data-group="I"  data-teams="צרפת|עיראק">
+  <div class="mh">
+    <div class="mbadge" >I</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇫🇷</span><span class="tn">צרפת</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇮🇶</span><span class="tn">עיראק</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">00:00</div><div class="mtsub">23.6</div></div>
+    <div class="venue-info">📍 פילדלפיה</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:82%">🇫🇷 82%</div><div class="od" style="width:11%">11%</div><div class="oa" style="width:7%">7% 🇮🇶</div></div>
+    <div class="on">צרפת – פייבוריט מוחלט</div>
+  </div>
+</div><div class="match-card" data-group="I"  data-teams="נורבגיה|סנגל">
+  <div class="mh">
+    <div class="mbadge" >I</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇳🇴</span><span class="tn">נורבגיה</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇸🇳</span><span class="tn">סנגל</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">03:00</div><div class="mtsub">23.6</div></div>
+    <div class="venue-info">📍 ניו יורק</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:48%">🇳🇴 48%</div><div class="od" style="width:28%">28%</div><div class="oa" style="width:24%">24% 🇸🇳</div></div>
+    <div class="on">נורבגיה מועדפת קלות</div>
+  </div>
+</div><div class="match-card" data-group="J"  data-teams="ירדן|אלג׳יריה">
+  <div class="mh">
+    <div class="mbadge" >J</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇯🇴</span><span class="tn">ירדן</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇩🇿</span><span class="tn">אלג׳יריה</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">06:00</div><div class="mtsub">23.6</div></div>
+    <div class="venue-info">📍 סן פרנסיסקו</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:35%">🇯🇴 35%</div><div class="od" style="width:30%">30%</div><div class="oa" style="width:35%">35% 🇩🇿</div></div>
+    <div class="on">משחק מאוזן לחלוטין</div>
+  </div>
+</div></div>
+<div class="day-group"><div class="day-header">שלישי · 23.6 · 4 משחקים</div><div class="match-card" data-group="K"  data-teams="פורטוגל|אוזבקיסטן">
+  <div class="mh">
+    <div class="mbadge" >K</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇵🇹</span><span class="tn">פורטוגל</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇺🇿</span><span class="tn">אוזבקיסטן</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">20:00</div><div class="mtsub">23.6</div></div>
+    <div class="venue-info">📍 יוסטון</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:80%">🇵🇹 80%</div><div class="od" style="width:13%">13%</div><div class="oa" style="width:7%">7% 🇺🇿</div></div>
+    <div class="on">פורטוגל מועדפת בפער גדול</div>
+  </div>
+</div><div class="match-card" data-group="L"  data-teams="אנגליה|גאנה">
+  <div class="mh">
+    <div class="mbadge" >L</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span><span class="tn">אנגליה</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇬🇭</span><span class="tn">גאנה</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">23:00</div><div class="mtsub">23.6</div></div>
+    <div class="venue-info">📍 בוסטון</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:68%">🏴󠁧󠁢󠁥󠁮󠁧󠁿 68%</div><div class="od" style="width:20%">20%</div><div class="oa" style="width:12%">12% 🇬🇭</div></div>
+    <div class="on">אנגליה מועדפת</div>
+  </div>
+</div><div class="match-card" data-group="L"  data-teams="פנמה|קרואטיה">
+  <div class="mh">
+    <div class="mbadge" >L</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇵🇦</span><span class="tn">פנמה</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇭🇷</span><span class="tn">קרואטיה</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">02:00</div><div class="mtsub">24.6</div></div>
+    <div class="venue-info">📍 טורונטו</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:20%">🇵🇦 20%</div><div class="od" style="width:25%">25%</div><div class="oa" style="width:55%">55% 🇭🇷</div></div>
+    <div class="on">קרואטיה מועדפת</div>
+  </div>
+</div><div class="match-card" data-group="K"  data-teams="קולומביה|קונגו DR">
+  <div class="mh">
+    <div class="mbadge" >K</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇨🇴</span><span class="tn">קולומביה</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇨🇩</span><span class="tn">קונגו DR</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">05:00</div><div class="mtsub">24.6</div></div>
+    <div class="venue-info">📍 גוודלחרה</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:65%">🇨🇴 65%</div><div class="od" style="width:22%">22%</div><div class="oa" style="width:13%">13% 🇨🇩</div></div>
+    <div class="on">קולומביה מועדפת</div>
+  </div>
+</div></div>
+<div class="day-group"><div class="day-header">רביעי · 24.6 · 6 משחקים ⚡ (סיבוב אחרון בתים A, B, C – בו-זמנית)</div><div class="match-card" data-group="B"  data-teams="שוויץ|קנדה">
+  <div class="mh">
+    <div class="mbadge" >B</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇨🇭</span><span class="tn">שוויץ</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇨🇦</span><span class="tn">קנדה</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">22:00</div><div class="mtsub">24.6</div></div>
+    <div class="venue-info">📍 ונקובר</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:44%">🇨🇭 44%</div><div class="od" style="width:28%">28%</div><div class="oa" style="width:28%">28% 🇨🇦</div></div>
+    <div class="on">משחק מאוזן · הכרעת גורל</div>
+  </div>
+</div><div class="match-card" data-group="B"  data-teams="בוסניה|קטאר">
+  <div class="mh">
+    <div class="mbadge" >B</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇧🇦</span><span class="tn">בוסניה</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇶🇦</span><span class="tn">קטאר</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">22:00</div><div class="mtsub">24.6</div></div>
+    <div class="venue-info">📍 סיאטל</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:50%">🇧🇦 50%</div><div class="od" style="width:28%">28%</div><div class="oa" style="width:22%">22% 🇶🇦</div></div>
+    <div class="on">בוסניה מועדפת קלות</div>
+  </div>
+</div><div class="match-card" data-group="C"  data-teams="ברזיל|סקוטלנד">
+  <div class="mh">
+    <div class="mbadge" >C</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇧🇷</span><span class="tn">ברזיל</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🏴󠁧󠁢󠁳󠁣󠁴󠁿</span><span class="tn">סקוטלנד</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">01:00</div><div class="mtsub">25.6</div></div>
+    <div class="venue-info">📍 מיאמי</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:75%">🇧🇷 75%</div><div class="od" style="width:17%">17%</div><div class="oa" style="width:8%">8% 🏴󠁧󠁢󠁳󠁣󠁴󠁿</div></div>
+    <div class="on">ברזיל מועדפת בבירור</div>
+  </div>
+</div><div class="match-card" data-group="C"  data-teams="מרוקו|האיטי">
+  <div class="mh">
+    <div class="mbadge" >C</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇲🇦</span><span class="tn">מרוקו</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇭🇹</span><span class="tn">האיטי</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">01:00</div><div class="mtsub">25.6</div></div>
+    <div class="venue-info">📍 אטלנטה</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:82%">🇲🇦 82%</div><div class="od" style="width:11%">11%</div><div class="oa" style="width:7%">7% 🇭🇹</div></div>
+    <div class="on">מרוקו מועדפת</div>
+  </div>
+</div><div class="match-card" data-group="A"  data-teams="מקסיקו|צ׳כיה">
+  <div class="mh">
+    <div class="mbadge" >A</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇲🇽</span><span class="tn">מקסיקו</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇨🇿</span><span class="tn">צ׳כיה</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">04:00</div><div class="mtsub">25.6</div></div>
+    <div class="venue-info">📍 מקסיקו סיטי</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:50%">🇲🇽 50%</div><div class="od" style="width:28%">28%</div><div class="oa" style="width:22%">22% 🇨🇿</div></div>
+    <div class="on">מקסיקו מועדפת קלות</div>
+  </div>
+</div><div class="match-card" data-group="A"  data-teams="קוריאה הד׳|דרום אפריקה">
+  <div class="mh">
+    <div class="mbadge" >A</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇰🇷</span><span class="tn">קוריאה הד׳</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇿🇦</span><span class="tn">דרום אפריקה</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">04:00</div><div class="mtsub">25.6</div></div>
+    <div class="venue-info">📍 מונטריי</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:55%">🇰🇷 55%</div><div class="od" style="width:26%">26%</div><div class="oa" style="width:19%">19% 🇿🇦</div></div>
+    <div class="on">קוריאה מועדפת</div>
+  </div>
+</div></div>
+<div class="day-group"><div class="day-header">חמישי · 25.6 · 6 משחקים ⚡ (סיבוב אחרון בתים D, E, F – בו-זמנית)</div><div class="match-card" data-group="E"  data-teams="אקוודור|גרמניה">
+  <div class="mh">
+    <div class="mbadge" >E</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇪🇨</span><span class="tn">אקוודור</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇩🇪</span><span class="tn">גרמניה</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">23:00</div><div class="mtsub">25.6</div></div>
+    <div class="venue-info">📍 ניו יורק</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:22%">🇪🇨 22%</div><div class="od" style="width:22%">22%</div><div class="oa" style="width:56%">56% 🇩🇪</div></div>
+    <div class="on">גרמניה מועדפת</div>
+  </div>
+</div><div class="match-card" data-group="E"  data-teams="קוראסאו|חוף השנהב">
+  <div class="mh">
+    <div class="mbadge" >E</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇨🇼</span><span class="tn">קוראסאו</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇨🇮</span><span class="tn">חוף השנהב</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">23:00</div><div class="mtsub">25.6</div></div>
+    <div class="venue-info">📍 פילדלפיה</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:12%">🇨🇼 12%</div><div class="od" style="width:18%">18%</div><div class="oa" style="width:70%">70% 🇨🇮</div></div>
+    <div class="on">חוף השנהב מועדפת</div>
+  </div>
+</div><div class="match-card" data-group="F"  data-teams="תוניסיה|הולנד">
+  <div class="mh">
+    <div class="mbadge" >F</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇹🇳</span><span class="tn">תוניסיה</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇳🇱</span><span class="tn">הולנד</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">02:00</div><div class="mtsub">26.6</div></div>
+    <div class="venue-info">📍 קנזס סיטי</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:15%">🇹🇳 15%</div><div class="od" style="width:20%">20%</div><div class="oa" style="width:65%">65% 🇳🇱</div></div>
+    <div class="on">הולנד מועדפת</div>
+  </div>
+</div><div class="match-card" data-group="F"  data-teams="יפן|שוודיה">
+  <div class="mh">
+    <div class="mbadge" >F</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇯🇵</span><span class="tn">יפן</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇸🇪</span><span class="tn">שוודיה</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">02:00</div><div class="mtsub">26.6</div></div>
+    <div class="venue-info">📍 דאלאס</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:42%">🇯🇵 42%</div><div class="od" style="width:28%">28%</div><div class="oa" style="width:30%">30% 🇸🇪</div></div>
+    <div class="on">משחק פתוח</div>
+  </div>
+</div><div class="match-card" data-group="D"  data-teams="ארה״ב|טורקיה">
+  <div class="mh">
+    <div class="mbadge" >D</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇺🇸</span><span class="tn">ארה״ב</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇹🇷</span><span class="tn">טורקיה</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">05:00</div><div class="mtsub">26.6</div></div>
+    <div class="venue-info">📍 לוס אנג׳לס</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:48%">🇺🇸 48%</div><div class="od" style="width:27%">27%</div><div class="oa" style="width:25%">25% 🇹🇷</div></div>
+    <div class="on">משחק מאוזן · הכרעת גורל</div>
+  </div>
+</div><div class="match-card" data-group="D"  data-teams="פרגוואי|אוסטרליה">
+  <div class="mh">
+    <div class="mbadge" >D</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇵🇾</span><span class="tn">פרגוואי</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇦🇺</span><span class="tn">אוסטרליה</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">05:00</div><div class="mtsub">26.6</div></div>
+    <div class="venue-info">📍 סן פרנסיסקו</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:40%">🇵🇾 40%</div><div class="od" style="width:28%">28%</div><div class="oa" style="width:32%">32% 🇦🇺</div></div>
+    <div class="on">משחק מאוזן</div>
+  </div>
+</div></div>
+<div class="day-group"><div class="day-header">שישי · 26.6 · 6 משחקים ⚡ (סיבוב אחרון בתים G, H, I – בו-זמנית)</div><div class="match-card" data-group="I"  data-teams="נורבגיה|צרפת">
+  <div class="mh">
+    <div class="mbadge" >I</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇳🇴</span><span class="tn">נורבגיה</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇫🇷</span><span class="tn">צרפת</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">22:00</div><div class="mtsub">26.6</div></div>
+    <div class="venue-info">📍 בוסטון</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:22%">🇳🇴 22%</div><div class="od" style="width:24%">24%</div><div class="oa" style="width:54%">54% 🇫🇷</div></div>
+    <div class="on">צרפת מועדפת</div>
+  </div>
+</div><div class="match-card" data-group="I"  data-teams="סנגל|עיראק">
+  <div class="mh">
+    <div class="mbadge" >I</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇸🇳</span><span class="tn">סנגל</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇮🇶</span><span class="tn">עיראק</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">22:00</div><div class="mtsub">26.6</div></div>
+    <div class="venue-info">📍 טורונטו</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:56%">🇸🇳 56%</div><div class="od" style="width:26%">26%</div><div class="oa" style="width:18%">18% 🇮🇶</div></div>
+    <div class="on">סנגל מועדפת</div>
+  </div>
+</div><div class="match-card" data-group="H"  data-teams="אורוגוואי|ספרד">
+  <div class="mh">
+    <div class="mbadge" >H</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇺🇾</span><span class="tn">אורוגוואי</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇪🇸</span><span class="tn">ספרד</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">03:00</div><div class="mtsub">27.6</div></div>
+    <div class="venue-info">📍 גוודלחרה</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:25%">🇺🇾 25%</div><div class="od" style="width:28%">28%</div><div class="oa" style="width:47%">47% 🇪🇸</div></div>
+    <div class="on">ספרד מועדפת · משחק גדול!</div>
+  </div>
+</div><div class="match-card" data-group="H"  data-teams="כף ורדה|ערב הסעודית">
+  <div class="mh">
+    <div class="mbadge" >H</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇨🇻</span><span class="tn">כף ורדה</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇸🇦</span><span class="tn">ערב הסעודית</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">03:00</div><div class="mtsub">27.6</div></div>
+    <div class="venue-info">📍 יוסטון</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:32%">🇨🇻 32%</div><div class="od" style="width:28%">28%</div><div class="oa" style="width:40%">40% 🇸🇦</div></div>
+    <div class="on">ערב הסעודית מועדפת קלות</div>
+  </div>
+</div><div class="match-card" data-group="G"  data-teams="ניו זילנד|בלגיה">
+  <div class="mh">
+    <div class="mbadge" >G</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇳🇿</span><span class="tn">ניו זילנד</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇧🇪</span><span class="tn">בלגיה</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">06:00</div><div class="mtsub">27.6</div></div>
+    <div class="venue-info">📍 ונקובר</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:14%">🇳🇿 14%</div><div class="od" style="width:20%">20%</div><div class="oa" style="width:66%">66% 🇧🇪</div></div>
+    <div class="on">בלגיה מועדפת</div>
+  </div>
+</div><div class="match-card" data-group="G"  data-teams="מצרים|איראן">
+  <div class="mh">
+    <div class="mbadge" >G</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇪🇬</span><span class="tn">מצרים</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇮🇷</span><span class="tn">איראן</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">06:00</div><div class="mtsub">27.6</div></div>
+    <div class="venue-info">📍 סיאטל</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:38%">🇪🇬 38%</div><div class="od" style="width:28%">28%</div><div class="oa" style="width:34%">34% 🇮🇷</div></div>
+    <div class="on">משחק מאוזן</div>
+  </div>
+</div></div>
+<div class="day-group"><div class="day-header">שבת · 27.6 · 6 משחקים ⚡ (סיבוב אחרון בתים J, K, L – בו-זמנית)</div><div class="match-card" data-group="L"  data-teams="פנמה|אנגליה">
+  <div class="mh">
+    <div class="mbadge" >L</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇵🇦</span><span class="tn">פנמה</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span><span class="tn">אנגליה</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">00:00</div><div class="mtsub">28.6</div></div>
+    <div class="venue-info">📍 ניו יורק</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:10%">🇵🇦 10%</div><div class="od" style="width:18%">18%</div><div class="oa" style="width:72%">72% 🏴󠁧󠁢󠁥󠁮󠁧󠁿</div></div>
+    <div class="on">אנגליה מועדפת בפער גדול</div>
+  </div>
+</div><div class="match-card" data-group="L"  data-teams="קרואטיה|גאנה">
+  <div class="mh">
+    <div class="mbadge" >L</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇭🇷</span><span class="tn">קרואטיה</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇬🇭</span><span class="tn">גאנה</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">00:00</div><div class="mtsub">28.6</div></div>
+    <div class="venue-info">📍 פילדלפיה</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:52%">🇭🇷 52%</div><div class="od" style="width:28%">28%</div><div class="oa" style="width:20%">20% 🇬🇭</div></div>
+    <div class="on">קרואטיה מועדפת</div>
+  </div>
+</div><div class="match-card" data-group="K"  data-teams="קולומביה|פורטוגל">
+  <div class="mh">
+    <div class="mbadge" >K</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇨🇴</span><span class="tn">קולומביה</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇵🇹</span><span class="tn">פורטוגל</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">03:00</div><div class="mtsub">28.6</div></div>
+    <div class="venue-info">📍 קנזס סיטי</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:30%">🇨🇴 30%</div><div class="od" style="width:28%">28%</div><div class="oa" style="width:42%">42% 🇵🇹</div></div>
+    <div class="on">פורטוגל מועדפת · משחק גדול!</div>
+  </div>
+</div><div class="match-card" data-group="K"  data-teams="קונגו DR|אוזבקיסטן">
+  <div class="mh">
+    <div class="mbadge" >K</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇨🇩</span><span class="tn">קונגו DR</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇺🇿</span><span class="tn">אוזבקיסטן</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">03:00</div><div class="mtsub">28.6</div></div>
+    <div class="venue-info">📍 לוס אנג׳לס</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:40%">🇨🇩 40%</div><div class="od" style="width:30%">30%</div><div class="oa" style="width:30%">30% 🇺🇿</div></div>
+    <div class="on">משחק מאוזן</div>
+  </div>
+</div><div class="match-card" data-group="J"  data-teams="ארגנטינה|ירדן">
+  <div class="mh">
+    <div class="mbadge" >J</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇦🇷</span><span class="tn">ארגנטינה</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇯🇴</span><span class="tn">ירדן</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">06:00</div><div class="mtsub">28.6</div></div>
+    <div class="venue-info">📍 סיאטל</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:84%">🇦🇷 84%</div><div class="od" style="width:10%">10%</div><div class="oa" style="width:6%">6% 🇯🇴</div></div>
+    <div class="on">ארגנטינה – פייבוריט מוחלט</div>
+  </div>
+</div><div class="match-card" data-group="J"  data-teams="אלג׳יריה|אוסטריה">
+  <div class="mh">
+    <div class="mbadge" >J</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🇩🇿</span><span class="tn">אלג׳יריה</span></div>
+      <div class="vs">VS</div>
+      <div class="tb away"><span class="tf">🇦🇹</span><span class="tn">אוסטריה</span></div>
+    </div>
+    <div class="mtb"><div class="mtil">06:00</div><div class="mtsub">28.6</div></div>
+    <div class="venue-info">📍 מיאמי</div>
+  </div>
+  <div class="odds-bar">
+    <div class="ol">סיכויים</div>
+    <div class="ot"><div class="oh" style="width:30%">🇩🇿 30%</div><div class="od" style="width:26%">26%</div><div class="oa" style="width:44%">44% 🇦🇹</div></div>
+    <div class="on">אוסטריה מועדפת</div>
+  </div>
+</div></div>
+
+</div><!-- end group tab -->
+
+<div id="tab-knockout" class="phase-section">
+<div class="stitle">שלב 32 – חדש!</div>
+<p style="color:var(--muted);font-size:13px;margin-bottom:14px">28 יוני – 3 יולי 2026 · 16 משחקים</p>
+<div class="ko-card"><div class="ko-desc">ראשון A נגד ראשון B<div class="ko-sub">📍 לוס אנג׳לס · 22:00 · 28.6</div></div></div>
+<div class="ko-card"><div class="ko-desc">ראשון C נגד שני F<div class="ko-sub">📍 יוסטון · 20:00 · 29.6</div></div></div>
+<div class="ko-card"><div class="ko-desc">ראשון E נגד שלישי הטוב<div class="ko-sub">📍 בוסטון · 23:30 · 29.6</div></div></div>
+<div class="ko-card"><div class="ko-desc">ראשון F נגד שני C<div class="ko-sub">📍 מונטריי · 04:00 · 30.6</div></div></div>
+<div class="ko-card"><div class="ko-desc">שני E נגד שני I<div class="ko-sub">📍 דאלאס · 20:00 · 30.6</div></div></div>
+<div class="ko-card"><div class="ko-desc">ראשון I נגד שלישי הטוב<div class="ko-sub">📍 ניו יורק · 00:00 · 1.7</div></div></div>
+<div class="ko-card"><div class="ko-desc">ראשון A נגד שלישי הטוב<div class="ko-sub">📍 מקסיקו סיטי · 04:00 · 1.7</div></div></div>
+<div class="ko-card"><div class="ko-desc">ראשון L נגד שלישי הטוב<div class="ko-sub">📍 אטלנטה · 19:00 · 1.7</div></div></div>
+<div class="ko-card"><div class="ko-desc">ראשון G נגד שלישי הטוב<div class="ko-sub">📍 סיאטל · 23:00 · 1.7</div></div></div>
+<div class="ko-card"><div class="ko-desc">ראשון D נגד שלישי הטוב<div class="ko-sub">📍 סן פרנסיסקו · 03:00 · 2.7</div></div></div>
+<div class="ko-card"><div class="ko-desc">ראשון H נגד שני J<div class="ko-sub">📍 לוס אנג׳לס · 22:00 · 2.7</div></div></div>
+<div class="ko-card"><div class="ko-desc">שני K נגד שני L<div class="ko-sub">📍 טורונטו · 03:00 · 3.7</div></div></div>
+<div class="ko-card"><div class="ko-desc">שני D נגד שני G<div class="ko-sub">📍 דאלאס · 19:00 · 3.7</div></div></div>
+<div class="ko-card"><div class="ko-desc">ראשון J נגד שני H<div class="ko-sub">📍 מיאמי · 23:00 · 3.7</div></div></div>
+<div class="ko-card"><div class="ko-desc">ראשון K נגד שלישי הטוב<div class="ko-sub">📍 קנזס סיטי · 02:30 · 4.7</div></div></div>
+<div class="ko-card"><div class="ko-desc">ראשון B נגד שלישי הטוב<div class="ko-sub">📍 ונקובר · 07:00 · 4.7</div></div></div>
+
+<div class="stitle">שמינית גמר (Round of 16)</div>
+<p style="color:var(--muted);font-size:13px;margin-bottom:14px">4–8 יולי 2026 · 8 משחקים</p>
+<div class="ko-card" style="border-color:rgba(255,215,0,0.22)"><div class="ko-desc">מנצח משחק 73 נגד מנצח משחק 75<div class="ko-sub">📍 יוסטון · 5.7</div></div></div>
+<div class="ko-card" style="border-color:rgba(255,215,0,0.22)"><div class="ko-desc">מנצח משחק 74 נגד מנצח משחק 77<div class="ko-sub">📍 פילדלפיה · 5.7</div></div></div>
+<div class="ko-card" style="border-color:rgba(255,215,0,0.22)"><div class="ko-desc">מנצח משחק 76 נגד מנצח משחק 78<div class="ko-sub">📍 ניו יורק · 6.7</div></div></div>
+<div class="ko-card" style="border-color:rgba(255,215,0,0.22)"><div class="ko-desc">מנצח משחק 79 נגד מנצח משחק 80<div class="ko-sub">📍 אטלנטה · 6.7</div></div></div>
+<div class="ko-card" style="border-color:rgba(255,215,0,0.22)"><div class="ko-desc">מנצח משחק 81 נגד מנצח משחק 82<div class="ko-sub">📍 סן פרנסיסקו · 7.7</div></div></div>
+<div class="ko-card" style="border-color:rgba(255,215,0,0.22)"><div class="ko-desc">מנצח משחק 83 נגד מנצח משחק 84<div class="ko-sub">📍 לוס אנג׳לס · 7.7</div></div></div>
+<div class="ko-card" style="border-color:rgba(255,215,0,0.22)"><div class="ko-desc">מנצח משחק 85 נגד מנצח משחק 86<div class="ko-sub">📍 דאלאס · 8.7</div></div></div>
+<div class="ko-card" style="border-color:rgba(255,215,0,0.22)"><div class="ko-desc">מנצח משחק 87 נגד מנצח משחק 88<div class="ko-sub">📍 קנזס סיטי · 8.7</div></div></div>
+
+<div class="stitle">רבע גמר</div>
+<p style="color:var(--muted);font-size:13px;margin-bottom:14px">9–12 יולי 2026 · 4 משחקים</p>
+<div class="ko-card" style="border-color:rgba(255,165,0,0.3)"><div class="ko-desc">רבע גמר 1<div class="ko-sub">📍 ניו יורק · 9.7</div></div></div>
+<div class="ko-card" style="border-color:rgba(255,165,0,0.3)"><div class="ko-desc">רבע גמר 2<div class="ko-sub">📍 לוס אנג׳לס · 9.7</div></div></div>
+<div class="ko-card" style="border-color:rgba(255,165,0,0.3)"><div class="ko-desc">רבע גמר 3<div class="ko-sub">📍 קנזס סיטי · 10.7</div></div></div>
+<div class="ko-card" style="border-color:rgba(255,165,0,0.3)"><div class="ko-desc">רבע גמר 4<div class="ko-sub">📍 דאלאס · 12.7</div></div></div>
+
+<div class="stitle">חצי גמר</div>
+<div class="ko-card" style="border-color:rgba(255,215,0,0.4)"><div class="ko-desc">חצי גמר 1<div class="ko-sub">📍 דאלאס (AT&amp;T Stadium) · 14.7</div></div></div>
+<div class="ko-card" style="border-color:rgba(255,215,0,0.4)"><div class="ko-desc">חצי גמר 2<div class="ko-sub">📍 אטלנטה (Mercedes-Benz Stadium) · 15.7</div></div></div>
+
+<div class="stitle">🏆 הגמר</div>
+<div class="match-card" style="border-color:rgba(255,215,0,0.6);background:linear-gradient(135deg,#111118,#18120a)">
+  <div class="mh">
+    <div class="mbadge" style="background:rgba(255,215,0,0.15);border-color:var(--gold)">גמר</div>
+    <div class="mteams">
+      <div class="tb"><span class="tf">🏆</span><span class="tn">מנצח ח.ג. 1</span></div>
+      <div class="vs" style="color:var(--gold)">VS</div>
+      <div class="tb away"><span class="tf">🏆</span><span class="tn">מנצח ח.ג. 2</span></div>
+    </div>
+    <div class="mtb"><div class="mtil" style="color:var(--gold)">22:00</div><div class="mtsub">19.7.2026</div></div>
+    <div class="venue-info">📍 MetLife · ניו יורק</div>
+  </div>
+</div>
+</div>
+
+<div id="tab-stats" class="phase-section">
+<div class="stitle">סיכויי זכייה בגביע</div>
+<p style="color:var(--muted);font-size:13px;margin-bottom:12px">לפי שוקי ההימורים ושוקי החיזוי (מאי 2026)</p>
+<div class="sg">
+  <div class="sc">
+    <div class="sct">הפייבוריטים הגדולים</div>
+    <div class="sr"><div class="srk">1</div><div class="sf">🇪🇸</div><div class="sn">ספרד</div><div class="pw"><div class="pb" style="width:100%"></div></div><div class="sp">17.1%</div></div>
+    <div class="sr"><div class="srk">2</div><div class="sf">🇫🇷</div><div class="sn">צרפת</div><div class="pw"><div class="pb" style="width:97%"></div></div><div class="sp">16.6%</div></div>
+    <div class="sr"><div class="srk">3</div><div class="sf">🏴󠁧󠁢󠁥󠁮󠁧󠁿</div><div class="sn">אנגליה</div><div class="pw"><div class="pb" style="width:65%"></div></div><div class="sp">11.1%</div></div>
+    <div class="sr"><div class="srk">4</div><div class="sf">🇦🇷</div><div class="sn">ארגנטינה</div><div class="pw"><div class="pb" style="width:56%"></div></div><div class="sp">9.5%</div></div>
+    <div class="sr"><div class="srk">5</div><div class="sf">🇧🇷</div><div class="sn">ברזיל</div><div class="pw"><div class="pb" style="width:47%"></div></div><div class="sp">8.0%</div></div>
+    <div class="sr"><div class="srk">6</div><div class="sf">🇩🇪</div><div class="sn">גרמניה</div><div class="pw"><div class="pb" style="width:35%"></div></div><div class="sp">6.0%</div></div>
+    <div class="sr"><div class="srk">7</div><div class="sf">🇵🇹</div><div class="sn">פורטוגל</div><div class="pw"><div class="pb" style="width:32%"></div></div><div class="sp">5.5%</div></div>
+    <div class="sr"><div class="srk">8</div><div class="sf">🇳🇱</div><div class="sn">הולנד</div><div class="pw"><div class="pb" style="width:28%"></div></div><div class="sp">4.8%</div></div>
+  </div>
+  <div class="sc">
+    <div class="sct">מפתיעות פוטנציאליות</div>
+    <div class="sr"><div class="sf">🇲🇦</div><div class="sn">מרוקו</div><div class="pw"><div class="pb" style="width:24%;background:linear-gradient(90deg,#ff9800,#ff5722)"></div></div><div class="sp" style="color:#ff9800">2.0%</div></div>
+    <div class="sr"><div class="sf">🇧🇪</div><div class="sn">בלגיה</div><div class="pw"><div class="pb" style="width:26%;background:linear-gradient(90deg,#ff9800,#ff5722)"></div></div><div class="sp" style="color:#ff9800">2.2%</div></div>
+    <div class="sr"><div class="sf">🇺🇾</div><div class="sn">אורוגוואי</div><div class="pw"><div class="pb" style="width:21%;background:linear-gradient(90deg,#ff9800,#ff5722)"></div></div><div class="sp" style="color:#ff9800">1.8%</div></div>
+    <div class="sr"><div class="sf">🇨🇴</div><div class="sn">קולומביה</div><div class="pw"><div class="pb" style="width:18%;background:linear-gradient(90deg,#ff9800,#ff5722)"></div></div><div class="sp" style="color:#ff9800">1.5%</div></div>
+    <div class="sr"><div class="sf">🇯🇵</div><div class="sn">יפן</div><div class="pw"><div class="pb" style="width:12%;background:linear-gradient(90deg,#ff9800,#ff5722)"></div></div><div class="sp" style="color:#ff9800">1.0%</div></div>
+    <div class="sr"><div class="sf">🇳🇴</div><div class="sn">נורבגיה</div><div class="pw"><div class="pb" style="width:10%;background:linear-gradient(90deg,#ff9800,#ff5722)"></div></div><div class="sp" style="color:#ff9800">0.8%</div></div>
+    <div class="sr"><div class="sf">🇺🇸</div><div class="sn">ארה״ב (מארחת)</div><div class="pw"><div class="pb" style="width:8%;background:linear-gradient(90deg,#ff9800,#ff5722)"></div></div><div class="sp" style="color:#ff9800">0.7%</div></div>
+  </div>
+  <div class="sc">
+    <div class="sct">ניתוח בתים</div>
+    <div style="margin-bottom:11px"><div style="font-size:13px;font-weight:700;color:var(--gold);margin-bottom:4px">🔥 בית C – "בית המוות"</div><div style="font-size:12px;color:var(--muted);line-height:1.8">🇧🇷 ברזיל · 🇲🇦 מרוקו · 🏴󠁧󠁢󠁳󠁣󠁴󠁿 סקוטלנד · 🇭🇹 האיטי<br>ברזיל-מרוקו – אחד מגדולי משחקי שלב הבתים</div></div>
+    <div style="margin-bottom:11px"><div style="font-size:13px;font-weight:700;color:var(--gold);margin-bottom:4px">⚡ בית H – ספרד שולטת</div><div style="font-size:12px;color:var(--muted);line-height:1.8">🇪🇸 ספרד · 🇺🇾 אורוגוואי · 🇸🇦 ערב הסעודית · 🇨🇻 כף ורדה<br>ספרד-אורוגוואי בסיבוב האחרון – הכרעת מיקומים</div></div>
+    <div style="margin-bottom:11px"><div style="font-size:13px;font-weight:700;color:var(--gold);margin-bottom:4px">💥 בית J – ארגנטינה+</div><div style="font-size:12px;color:var(--muted);line-height:1.8">🇦🇷 ארגנטינה · 🇦🇹 אוסטריה · 🇩🇿 אלג׳יריה · 🇯🇴 ירדן<br>ארגנטינה ברורה ראשונה. מאבק שלושה על מקום שני</div></div>
+    <div><div style="font-size:13px;font-weight:700;color:var(--gold);margin-bottom:4px">🌊 בית I – צרפת גוברת</div><div style="font-size:12px;color:var(--muted);line-height:1.8">🇫🇷 צרפת · 🇸🇳 סנגל · 🇳🇴 נורבגיה · 🇮🇶 עיראק<br>צרפת תעלה ראשונה. נורבגיה מסוכנת למקום שני</div></div>
+  </div>
+  <div class="sc">
+    <div class="sct">עובדות מרכזיות</div>
+    <div style="display:flex;flex-direction:column;gap:11px">
+      <div style="display:flex;gap:9px"><div style="font-size:19px">🏟️</div><div><div style="font-size:13px;font-weight:700">16 אצטדיונים</div><div style="font-size:12px;color:var(--muted)">ארה"ב, קנדה ומקסיקו. 78 משחקים בארה"ב</div></div></div>
+      <div style="display:flex;gap:9px"><div style="font-size:19px">⚽</div><div><div style="font-size:13px;font-weight:700">48 נבחרות – שיא עולמי</div><div style="font-size:12px;color:var(--muted)">104 משחקים, 72 בשלב הבתים</div></div></div>
+      <div style="display:flex;gap:9px"><div style="font-size:19px">🆕</div><div><div style="font-size:13px;font-weight:700">שלב 32 – חדש לחלוטין</div><div style="font-size:12px;color:var(--muted)">לא היה בשום מונדיאל קודם</div></div></div>
+      <div style="display:flex;gap:9px"><div style="font-size:19px">🇮🇱</div><div><div style="font-size:13px;font-weight:700">שעות ישראל (IDT)</div><div style="font-size:12px;color:var(--muted)">ET + 7 שעות. רוב המשחקים 20:00–07:00</div></div></div>
+      <div style="display:flex;gap:9px"><div style="font-size:19px">⚡</div><div><div style="font-size:13px;font-weight:700">סבבים אחרונים – בו-זמניים</div><div style="font-size:12px;color:var(--muted)">כל סיבוב שלישי של בית – 2 משחקים יחד</div></div></div>
+    </div>
+  </div>
+</div>
+</div>
+
+</div>
+
+<div class="footer">
+  מונדיאל 2026 · ארה"ב · מקסיקו · קנדה · 11 יוני – 19 יולי 2026<br>
+  שעות בשעון ישראל (IDT = ET + 7) · סיכויים לפי שוקי ההימורים (מאי 2026) · ⚡ = משחקים סימולטניים
+</div>
+
+
+<script>
+// ─── Tab switching ───────────────────────────────────────────────────────────
+function showTab(id,btn){
+  document.querySelectorAll('.phase-section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  btn.classList.add('active');
+  document.getElementById('group-filter').style.display=id==='group'?'flex':'none';
+  document.getElementById('team-filter-bar').classList.remove('visible');
+  clearTeamFilter(false);
+}
+
+// ─── Group filter ────────────────────────────────────────────────────────────
+function filterGroup(g,btn){
+  document.querySelectorAll('.gf-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.match-card').forEach(card=>{
+    if(g==='all'||card.dataset.group===g)card.classList.remove('hidden');
+    else card.classList.add('hidden');
+  });
+  document.querySelectorAll('.day-group').forEach(dg=>{
+    const visible=[...dg.querySelectorAll('.match-card')].some(c=>!c.classList.contains('hidden'));
+    dg.style.display=visible?'block':'none';
+  });
+}
+
+// ─── Team filter ─────────────────────────────────────────────────────────────
+const TODAY = new Date('2026-05-28');
+
+// Returns Date object from day string like "11.6" → June 11 2026
+function parseMatchDate(d){
+  const [day,month]=d.split('.').map(Number);
+  return new Date(2026,month-1,day);
+}
+
+function isMatchFuture(dateStr){
+  return parseMatchDate(dateStr) > TODAY;
+}
+
+let currentTeam = null;
+
+function filterSuggestions(val){
+  const sugs = document.getElementById('tf-suggestions');
+  const items = sugs.querySelectorAll('.tf-sug-item');
+  const v = val.trim().toLowerCase();
+  let anyVisible = false;
+  items.forEach(item=>{
+    const match = item.textContent.trim().toLowerCase().includes(v);
+    item.style.display = match ? '' : 'none';
+    if(match) anyVisible = true;
+  });
+  sugs.classList.toggle('open', v.length > 0 && anyVisible);
+}
+
+function handleSearchKey(e){
+  const sugs = document.getElementById('tf-suggestions');
+  const visible = [...sugs.querySelectorAll('.tf-sug-item')].filter(i=>i.style.display!=='none');
+  const hi = sugs.querySelector('.highlighted');
+  if(e.key==='ArrowDown'){
+    e.preventDefault();
+    const idx = hi ? visible.indexOf(hi) : -1;
+    if(hi) hi.classList.remove('highlighted');
+    const next = visible[Math.min(idx+1, visible.length-1)];
+    if(next){ next.classList.add('highlighted'); next.scrollIntoView({block:'nearest'}); }
+  } else if(e.key==='ArrowUp'){
+    e.preventDefault();
+    const idx = hi ? visible.indexOf(hi) : visible.length;
+    if(hi) hi.classList.remove('highlighted');
+    const prev = visible[Math.max(idx-1, 0)];
+    if(prev){ prev.classList.add('highlighted'); prev.scrollIntoView({block:'nearest'}); }
+  } else if(e.key==='Enter'){
+    const target = hi || visible[0];
+    if(target) selectTeam(target.textContent.trim().replace(/^./,'').trim());
+  } else if(e.key==='Escape'){
+    sugs.classList.remove('open');
+  }
+}
+
+function selectTeam(teamName){
+  currentTeam = teamName;
+  document.getElementById('team-search-input').value = teamName;
+  document.getElementById('tf-suggestions').classList.remove('open');
+  showTeamView(teamName);
+}
+
+function clearTeamFilter(resetInput=true){
+  currentTeam = null;
+  if(resetInput) document.getElementById('team-search-input').value = '';
+  document.getElementById('tf-suggestions').classList.remove('open');
+  document.getElementById('team-view').innerHTML = '';
+  document.getElementById('team-view').classList.remove('active');
+  document.getElementById('team-view').style.display = 'none';
+  document.querySelector('.content').style.display = '';
+}
+
+// Close suggestions on outside click
+document.addEventListener('click', e=>{
+  if(!e.target.closest('.tf-search')) document.getElementById('tf-suggestions').classList.remove('open');
+});
+
+function showTeamView(teamName){
+  // Collect all match cards that include this team
+  const allCards = [...document.querySelectorAll('.match-card[data-teams]')];
+  const teamCards = allCards.filter(card=>{
+    const teams = card.dataset.teams.split('|');
+    return teams.some(t=>t.trim()===teamName);
+  });
+
+  if(teamCards.length===0){ return; }
+
+  // Hide main content, show team view
+  document.querySelector('.content').style.display = 'none';
+  const tv = document.getElementById('team-view');
+  tv.innerHTML = '';
+  tv.style.display = 'block';
+  tv.classList.add('active');
+
+  // Split into past and future
+  const past = [], future = [];
+  teamCards.forEach(card=>{
+    const dateEl = card.querySelector('.mtsub');
+    const dateStr = dateEl ? dateEl.textContent.trim() : '1.1';
+    if(isMatchFuture(dateStr)) future.push({card, dateStr});
+    else past.push({card, dateStr});
+  });
+
+  // Get team flag
+  const flagMap = {
+    'מקסיקו':'🇲🇽','דרום אפריקה':'🇿🇦','קוריאה הד׳':'🇰🇷','צ׳כיה':'🇨🇿',
+    'קנדה':'🇨🇦','בוסניה':'🇧🇦','ארה״ב':'🇺🇸','פרגוואי':'🇵🇾',
+    'קטאר':'🇶🇦','שוויץ':'🇨🇭','ברזיל':'🇧🇷','מרוקו':'🇲🇦',
+    'האיטי':'🇭🇹','סקוטלנד':'🏴󠁧󠁢󠁳󠁣󠁴󠁿','אוסטרליה':'🇦🇺','טורקיה':'🇹🇷',
+    'גרמניה':'🇩🇪','קוראסאו':'🇨🇼','הולנד':'🇳🇱','יפן':'🇯🇵',
+    'חוף השנהב':'🇨🇮','אקוודור':'🇪🇨','תוניסיה':'🇹🇳','שוודיה':'🇸🇪',
+    'ספרד':'🇪🇸','כף ורדה':'🇨🇻','בלגיה':'🇧🇪','מצרים':'🇪🇬',
+    'ערב הסעודית':'🇸🇦','אורוגוואי':'🇺🇾','איראן':'🇮🇷','ניו זילנד':'🇳🇿',
+    'צרפת':'🇫🇷','סנגל':'🇸🇳','עיראק':'🇮🇶','נורבגיה':'🇳🇴',
+    'ארגנטינה':'🇦🇷','אלג׳יריה':'🇩🇿','אוסטריה':'🇦🇹','ירדן':'🇯🇴',
+    'פורטוגל':'🇵🇹','קונגו DR':'🇨🇩','אנגליה':'🏴󠁧󠁢󠁥󠁮󠁧󠁿','קרואטיה':'🇭🇷',
+    'גאנה':'🇬🇭','פנמה':'🇵🇦','אוזבקיסטן':'🇺🇿','קולומביה':'🇨🇴',
+  };
+  const flag = flagMap[teamName] || '⚽';
+
+  // Header
+  const header = document.createElement('div');
+  header.className = 'tv-header';
+  header.innerHTML = `
+    <div class="tv-flag-big">${flag}</div>
+    <div>
+      <div class="tv-title">${teamName}</div>
+      <div class="tv-subtitle">שלב הבתים · ${teamCards.length} משחקים</div>
+    </div>
+    <div class="tv-stats">
+      <div class="tv-stat"><div class="tv-stat-num">${past.length}</div><div class="tv-stat-lbl">שוחקו</div></div>
+      <div class="tv-stat"><div class="tv-stat-num">${future.length}</div><div class="tv-stat-lbl">עתידיים</div></div>
+    </div>
+  `;
+  tv.appendChild(header);
+
+  function renderCard(item, isPast){
+    const {card, dateStr} = item;
+    const clone = card.cloneNode(true);
+    clone.classList.remove('hidden');
+    clone.style.transform = '';
+    // Remove existing odds-bar result stuff
+    // Add a future/past indicator
+    const indicator = document.createElement('div');
+    if(isPast){
+      // Since all WC matches are in the future (today = May 28),
+      // this block won't actually render. But we keep it for structure.
+      indicator.className = 'result-overlay';
+      indicator.innerHTML = `<span class="result-label">תוצאה סופית</span><span class="result-score">– : –</span><span class="result-badge draw">הסתיים</span>`;
+    } else {
+      indicator.className = 'future-badge';
+      indicator.innerHTML = `⏳ משחק עתידי · ${dateStr}`;
+    }
+    clone.appendChild(indicator);
+    return clone;
+  }
+
+  // Past matches section
+  if(past.length > 0){
+    const label = document.createElement('div');
+    label.className = 'tv-section-label past';
+    label.innerHTML = `משחקים שהסתיימו (${past.length})`;
+    tv.appendChild(label);
+    past.forEach(item => tv.appendChild(renderCard(item, true)));
+  }
+
+  // Future matches section
+  if(future.length > 0){
+    const label = document.createElement('div');
+    label.className = 'tv-section-label future';
+    label.innerHTML = `משחקים קרובים (${future.length})`;
+    tv.appendChild(label);
+    future.forEach(item => tv.appendChild(renderCard(item, false)));
+  }
+}
+
+// ─── Channel & Shabbat injection ─────────────────────────────────────────────
+// {free: ערוץ חינם, paid: ערוץ בתשלום}
+// אם free קיים – המשחק משודר גם בחינם וגם בתשלום
+// אם רק paid – רק בתשלום
+const MATCH_CHANNELS = {
+  'מקסיקו|דרום אפריקה':          {paid:'ספורט 5'},
+  'קוריאה הד׳|צ׳כיה':            {paid:'ספורט 1'},
+  'קנדה|בוסניה':                  {paid:'ספורט 5'},
+  'ארה״ב|פרגוואי':               {paid:'ספורט 5'},
+  'קטאר|שוויץ':                   {paid:'ספורט 1'},
+  'ברזיל|מרוקו':                  {free:'כאן 11', paid:'ספורט 5'},
+  'האיטי|סקוטלנד':               {paid:'ספורט 1'},
+  'אוסטרליה|טורקיה':             {paid:'ספורט 1'},
+  'גרמניה|קוראסאו':              {free:'כאן 11', paid:'ספורט 5'},
+  'הולנד|יפן':                   {free:'כאן 11', paid:'ספורט 5'},
+  'חוף השנהב|אקוודור':           {paid:'ספורט 1'},
+  'תוניסיה|שוודיה':              {paid:'ספורט 1'},
+  'ספרד|כף ורדה':                {free:'כאן 11', paid:'ספורט 5'},
+  'בלגיה|מצרים':                 {paid:'ספורט 5'},
+  'ערב הסעודית|אורוגוואי':       {paid:'ספורט 1'},
+  'איראן|ניו זילנד':             {paid:'ספורט 1'},
+  'צרפת|סנגל':                   {free:'כאן 11', paid:'ספורט 5'},
+  'עיראק|נורבגיה':               {paid:'ספורט 1'},
+  'ארגנטינה|אלג׳יריה':           {free:'כאן 11', paid:'ספורט 5'},
+  'אוסטריה|ירדן':                {paid:'ספורט 1'},
+  'פורטוגל|קונגו DR':            {free:'כאן 11', paid:'ספורט 5'},
+  'אנגליה|קרואטיה':              {free:'כאן 11', paid:'ספורט 5'},
+  'גאנה|פנמה':                   {paid:'ספורט 1'},
+  'אוזבקיסטן|קולומביה':         {paid:'ספורט 1'},
+  'צ׳כיה|דרום אפריקה':           {paid:'ספורט 1'},
+  'שוויץ|בוסניה':                {paid:'ספורט 1'},
+  'קנדה|קטאר':                   {paid:'ספורט 5'},
+  'מקסיקו|קוריאה הד׳':           {paid:'ספורט 5'},
+  'ארה״ב|אוסטרליה':              {paid:'ספורט 5'},
+  'סקוטלנד|מרוקו':               {paid:'ספורט 1'},
+  'ברזיל|האיטי':                 {free:'כאן 11', paid:'ספורט 5'},
+  'טורקיה|פרגוואי':              {paid:'ספורט 1'},
+  'הולנד|שוודיה':                {free:'כאן 11', paid:'ספורט 5'},
+  'גרמניה|חוף השנהב':            {free:'כאן 11', paid:'ספורט 5'},
+  'אקוודור|קוראסאו':             {paid:'ספורט 1'},
+  'תוניסיה|יפן':                 {paid:'ספורט 1'},
+  'ספרד|ערב הסעודית':            {free:'כאן 11', paid:'ספורט 5'},
+  'בלגיה|איראן':                 {paid:'ספורט 5'},
+  'אורוגוואי|כף ורדה':           {paid:'ספורט 1'},
+  'ניו זילנד|מצרים':             {paid:'ספורט 1'},
+  'ארגנטינה|אוסטריה':            {free:'כאן 11', paid:'ספורט 5'},
+  'צרפת|עיראק':                  {free:'כאן 11', paid:'ספורט 5'},
+  'נורבגיה|סנגל':                {paid:'ספורט 1'},
+  'ירדן|אלג׳יריה':               {paid:'ספורט 1'},
+  'פורטוגל|אוזבקיסטן':          {free:'כאן 11', paid:'ספורט 5'},
+  'אנגליה|גאנה':                 {free:'כאן 11', paid:'ספורט 5'},
+  'פנמה|קרואטיה':                {paid:'ספורט 1'},
+  'קולומביה|קונגו DR':           {paid:'ספורט 1'},
+  'שוויץ|קנדה':                  {paid:'ספורט 5'},
+  'בוסניה|קטאר':                 {paid:'ספורט 1'},
+  'ברזיל|סקוטלנד':               {free:'כאן 11', paid:'ספורט 5'},
+  'מרוקו|האיטי':                 {paid:'ספורט 5'},
+  'מקסיקו|צ׳כיה':                {paid:'ספורט 5'},
+  'קוריאה הד׳|דרום אפריקה':      {paid:'ספורט 1'},
+  'אקוודור|גרמניה':              {free:'כאן 11', paid:'ספורט 5'},
+  'קוראסאו|חוף השנהב':           {paid:'ספורט 1'},
+  'תוניסיה|הולנד':               {paid:'ספורט 1'},
+  'יפן|שוודיה':                  {paid:'ספורט 5'},
+  'ארה״ב|טורקיה':                {paid:'ספורט 5'},
+  'פרגוואי|אוסטרליה':            {paid:'ספורט 1'},
+  'נורבגיה|צרפת':                {free:'כאן 11', paid:'ספורט 5'},
+  'סנגל|עיראק':                  {paid:'ספורט 1'},
+  'אורוגוואי|ספרד':              {free:'כאן 11', paid:'ספורט 5'},
+  'כף ורדה|ערב הסעודית':         {paid:'ספורט 1'},
+  'ניו זילנד|בלגיה':             {paid:'ספורט 5'},
+  'מצרים|איראן':                 {paid:'ספורט 1'},
+  'פנמה|אנגליה':                 {free:'כאן 11', paid:'ספורט 5'},
+  'קרואטיה|גאנה':                {paid:'ספורט 1'},
+  'קולומביה|פורטוגל':            {free:'כאן 11', paid:'ספורט 5'},
+  'קונגו DR|אוזבקיסטן':         {paid:'ספורט 1'},
+  'ארגנטינה|ירדן':               {free:'כאן 11', paid:'ספורט 5'},
+  'אלג׳יריה|אוסטריה':            {paid:'ספורט 1'},
+};
+
+// שעות שבת בתל אביב (IDT = UTC+3) לאורך הטורניר
+const SHABBATOT = [
+  [2026,6,12,19,33,  2026,6,13,20,52],
+  [2026,6,19,19,39,  2026,6,20,20,58],
+  [2026,6,26,19,42,  2026,6,27,21,1],
+  [2026,7,3,19,41,   2026,7,4,21,0],
+  [2026,7,10,19,37,  2026,7,11,20,56],
+  [2026,7,17,19,31,  2026,7,18,20,49],
+];
+
+const HEB_DAYS = ['ראשון','שני','שלישי','רביעי','חמישי','שישי','שבת'];
+
+function getHebrewDay(dateStr) {
+  const parts = dateStr.replace('.2026','').split('.');
+  const d = new Date(2026, parseInt(parts[1])-1, parseInt(parts[0]));
+  return HEB_DAYS[d.getDay()];
+}
+
+function isDuringShabbat(dateStr, timeStr) {
+  const parts = dateStr.replace('.2026','').split('.');
+  const d = parseInt(parts[0]), m = parseInt(parts[1]);
+  const [h, mn] = timeStr.split(':').map(Number);
+  const t = new Date(2026, m-1, d, h, mn);
+  return SHABBATOT.some(([sy,sm,sd,sh,smn,ey,em,ed,eh,emn]) =>
+    t >= new Date(sy,sm-1,sd,sh,smn) && t <= new Date(ey,em-1,ed,eh,emn)
+  );
+}
+
+function buildChRow(ch, cssPrefix) {
+  const row = document.createElement('div');
+  row.className = cssPrefix + '-row';
+  if (ch.free) {
+    const f = document.createElement('span');
+    f.className = cssPrefix + '-free';
+    f.textContent = '📺 ' + ch.free + ' · חינם';
+    row.appendChild(f);
+  }
+  if (ch.paid) {
+    const p = document.createElement('span');
+    p.className = cssPrefix + '-paid';
+    p.textContent = (ch.free ? '' : '📺 ') + ch.paid + (ch.free ? ' · מנוי' : ' · מנוי בלבד');
+    row.appendChild(p);
+  }
+  return row;
+}
+
+(function injectChannelAndShabbat(){
+  // --- כרטיסי שלב הבתים ---
+  document.querySelectorAll('.match-card[data-teams]').forEach(card => {
+    const teams = card.dataset.teams;
+    const timeEl = card.querySelector('.mtil');
+    const dateEl = card.querySelector('.mtsub');
+    if (!timeEl || !dateEl) return;
+    const time = timeEl.textContent.trim();
+    const date = dateEl.textContent.trim();
+
+    // הוסף יום השבוע לצד התאריך
+    const daySpan = document.createElement('div');
+    daySpan.className = 'mtsub-day';
+    daySpan.textContent = getHebrewDay(date);
+    dateEl.parentNode.insertBefore(daySpan, dateEl);
+
+    // הוסף ערוצים
+    const ch = MATCH_CHANNELS[teams] || {paid:'ספורט 5'};
+    const mtb = card.querySelector('.mtb');
+    if (mtb) mtb.appendChild(buildChRow(ch, 'ch'));
+
+    // בדוק שבת
+    if (isDuringShabbat(date, time)) {
+      card.classList.add('is-shabbat');
+      const strip = document.createElement('div');
+      strip.className = 'shabbat-strip';
+      strip.innerHTML = '🕯️ שבת בישראל <em>· משחק זה משודר בשעות שבת (כניסה ~19:30, יציאה ~21:00)</em>';
+      card.appendChild(strip);
+    }
+  });
+
+  // --- כרטיסי שלב הנוקאאוט ---
+  document.querySelectorAll('.ko-card').forEach(card => {
+    const sub = card.querySelector('.ko-sub');
+    if (!sub) return;
+    const text = sub.textContent;
+    const timeMatch = text.match(/(\d{1,2}:\d{2})/);
+    const dateMatch = text.match(/(\d{1,2})\.(\d{1,2})/);
+
+    // כל משחקי הנוקאאוט – גם כאן 11 וגם ספורט 5
+    const koChRow = document.createElement('div');
+    koChRow.className = 'ko-ch-row';
+    const kof = document.createElement('span');
+    kof.className = 'ko-ch-free';
+    kof.textContent = '📺 כאן 11 · חינם';
+    const kop = document.createElement('span');
+    kop.className = 'ko-ch-paid';
+    kop.textContent = 'ספורט 5 · מנוי';
+    koChRow.appendChild(kof);
+    koChRow.appendChild(kop);
+    card.querySelector('.ko-desc').appendChild(koChRow);
+
+    if (timeMatch && dateMatch) {
+      const dateStr = dateMatch[1] + '.' + dateMatch[2];
+      // הוסף יום
+      const dayEl = document.createElement('span');
+      dayEl.style.cssText = 'font-size:10px;color:var(--muted);margin-right:6px;';
+      dayEl.textContent = getHebrewDay(dateStr) + ' ·';
+      sub.prepend(dayEl);
+
+      if (isDuringShabbat(dateStr, timeMatch[1])) {
+        card.classList.add('is-shabbat');
+        const note = document.createElement('div');
+        note.className = 'ko-shabbat-note';
+        note.innerHTML = '🕯️ שבת בישראל';
+        card.querySelector('.ko-desc').appendChild(note);
+      }
+    }
+  });
+})();
+
+// ─── Activate team filter tab ────────────────────────────────────────────────
+function activateTeamFilter(){
+  // Switch to group tab if not there
+  const groupTab = document.querySelector('.tab-btn.active');
+  // Show the team filter bar
+  document.getElementById('team-filter-bar').classList.add('visible');
+  document.getElementById('team-search-input').focus();
+}
+
+// Hook into tab switching to show/hide team filter
+document.addEventListener('DOMContentLoaded', ()=>{
+  // Add team filter tab button
+  const tabs = document.querySelector('.tabs');
+  const btn = document.createElement('button');
+  btn.className = 'tab-btn';
+  btn.innerHTML = '🔍 חיפוש נבחרת';
+  btn.onclick = function(){
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    this.classList.add('active');
+    document.getElementById('group-filter').style.display='none';
+    document.getElementById('team-filter-bar').classList.add('visible');
+    // If no team selected yet, just show the bar
+    if(!currentTeam){
+      document.querySelector('.content').style.display='';
+      document.getElementById('team-view').style.display='none';
+    }
+    document.getElementById('team-search-input').focus();
+  };
+  tabs.appendChild(btn);
+});
+</script>
+
+</body>
+</html>
