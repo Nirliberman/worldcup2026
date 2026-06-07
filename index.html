@@ -153,6 +153,12 @@ body{background:var(--darker);color:var(--text);font-family:'Heebo',sans-serif;d
 .live-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#ff3030;margin-left:5px;animation:blink 1s infinite;}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
 .api-status{text-align:center;font-size:10px;color:var(--muted);padding:4px;letter-spacing:1px;}
+
+/* Winner Israel betting link */
+.winner-link{display:inline-flex;align-items:center;gap:4px;background:linear-gradient(90deg,rgba(255,85,0,0.18),rgba(220,50,0,0.12));border:1px solid rgba(255,100,0,0.45);border-radius:4px;padding:2px 8px;font-size:10px;font-weight:700;color:#ff6a20;text-decoration:none;white-space:nowrap;transition:all 0.18s;letter-spacing:0;flex-shrink:0;cursor:pointer;}
+.winner-link:hover{background:linear-gradient(90deg,rgba(255,85,0,0.32),rgba(220,50,0,0.24));border-color:rgba(255,120,0,0.75);color:#ffaa55;}
+.ko-winner-link{display:inline-flex;align-items:center;gap:4px;background:linear-gradient(90deg,rgba(255,85,0,0.18),rgba(220,50,0,0.12));border:1px solid rgba(255,100,0,0.45);border-radius:4px;padding:2px 8px;font-size:10px;font-weight:700;color:#ff6a20;text-decoration:none;white-space:nowrap;transition:all 0.18s;letter-spacing:0;margin-top:5px;cursor:pointer;}
+.ko-winner-link:hover{background:linear-gradient(90deg,rgba(255,85,0,0.32),rgba(220,50,0,0.24));border-color:rgba(255,120,0,0.75);color:#ffaa55;}
 </style>
 
 <script>
@@ -2041,6 +2047,18 @@ function buildChRow(ch, cssPrefix) {
     const mtb = card.querySelector('.mtb');
     if (mtb) mtb.appendChild(buildChRow(ch, 'ch'));
 
+    // הוסף קישור הימור Winner
+    const oddsBar = card.querySelector('.odds-bar');
+    if (oddsBar) {
+      const wLink = document.createElement('a');
+      wLink.className = 'winner-link';
+      wLink.href = 'https://www.winner.co.il/sports/soccer';
+      wLink.target = '_blank';
+      wLink.rel = 'noopener noreferrer';
+      wLink.innerHTML = '🎲 הימור ב-Winner';
+      oddsBar.appendChild(wLink);
+    }
+
     // בדוק שבת
     if (isDuringShabbat(date, time)) {
       card.classList.add('is-shabbat');
@@ -2071,6 +2089,15 @@ function buildChRow(ch, cssPrefix) {
     koChRow.appendChild(kof);
     koChRow.appendChild(kop);
     card.querySelector('.ko-desc').appendChild(koChRow);
+
+    // הוסף קישור הימור Winner לנוקאאוט
+    const koWLink = document.createElement('a');
+    koWLink.className = 'ko-winner-link';
+    koWLink.href = 'https://www.winner.co.il/sports/soccer';
+    koWLink.target = '_blank';
+    koWLink.rel = 'noopener noreferrer';
+    koWLink.innerHTML = '🎲 הימור ב-Winner';
+    card.querySelector('.ko-desc').appendChild(koWLink);
 
     if (timeMatch && dateMatch) {
       const dateStr = dateMatch[1] + '.' + dateMatch[2];
