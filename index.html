@@ -137,6 +137,22 @@ body{background:var(--darker);color:var(--text);font-family:'Heebo',sans-serif;d
 .ko-ch-row{display:flex;gap:5px;flex-wrap:wrap;margin-top:5px;}
 .ko-ch-free{font-size:10px;font-weight:700;color:#66bb6a;background:rgba(102,187,106,0.1);border:1px solid rgba(102,187,106,0.35);border-radius:4px;padding:2px 7px;}
 .ko-ch-paid{font-size:10px;color:#7090b0;background:rgba(79,120,160,0.08);border:1px solid rgba(79,120,160,0.22);border-radius:4px;padding:2px 7px;}
+
+/* Live results */
+.score-bar{display:flex;align-items:center;justify-content:space-between;padding:8px 13px;border-top:2px solid var(--border);gap:8px;}
+.score-bar.finished{border-top-color:rgba(0,230,118,0.4);background:rgba(0,230,118,0.05);}
+.score-bar.live{border-top-color:rgba(255,60,60,0.6);background:rgba(255,30,30,0.07);animation:pulse-bar 2s infinite;}
+.score-bar.halftime{border-top-color:rgba(255,200,0,0.5);background:rgba(255,200,0,0.06);}
+@keyframes pulse-bar{0%,100%{background:rgba(255,30,30,0.07)}50%{background:rgba(255,30,30,0.14)}}
+.score-main{font-family:'Bebas Neue',cursive;font-size:28px;letter-spacing:3px;color:var(--gold);}
+.score-label{font-size:11px;letter-spacing:1px;}
+.score-bar.finished .score-label{color:#00e676;}
+.score-bar.live .score-label{color:#ff5252;font-weight:700;}
+.score-bar.halftime .score-label{color:#ffd700;}
+.score-ht{font-size:10px;color:var(--muted);margin-top:1px;}
+.live-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#ff3030;margin-left:5px;animation:blink 1s infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
+.api-status{text-align:center;font-size:10px;color:var(--muted);padding:4px;letter-spacing:1px;}
 </style>
 
 <script>
@@ -1732,6 +1748,152 @@ function showTeamView(teamName){
     future.forEach(item => tv.appendChild(renderCard(item, false)));
   }
 }
+
+// ─── Live Results from football-data.org ─────────────────────────────────────
+const FD_KEY = '5df3fa3ccc0a47528488253e58002db5';
+const FD_URL = 'https://api.football-data.org/v4/competitions/WC/matches';
+
+// Hebrew name → English name (API)
+const TEAM_HE_EN = {
+  'מקסיקו':'Mexico','דרום אפריקה':'South Africa','קוריאה הד׳':'South Korea',
+  'צ׳כיה':'Czechia','קנדה':'Canada','בוסניה':'Bosnia-Herzegovina',
+  'ארה״ב':'United States','פרגוואי':'Paraguay','קטאר':'Qatar',
+  'שוויץ':'Switzerland','ברזיל':'Brazil','מרוקו':'Morocco',
+  'האיטי':'Haiti','סקוטלנד':'Scotland','אוסטרליה':'Australia',
+  'טורקיה':'Turkey','גרמניה':'Germany','קוראסאו':'Curaçao',
+  'הולנד':'Netherlands','יפן':'Japan','חוף השנהב':'Ivory Coast',
+  'אקוודור':'Ecuador','תוניסיה':'Tunisia','שוודיה':'Sweden',
+  'ספרד':'Spain','כף ורדה':'Cape Verde Islands','בלגיה':'Belgium',
+  'מצרים':'Egypt','ערב הסעודית':'Saudi Arabia','אורוגוואי':'Uruguay',
+  'איראן':'Iran','ניו זילנד':'New Zealand','צרפת':'France',
+  'סנגל':'Senegal','עיראק':'Iraq','נורבגיה':'Norway',
+  'ארגנטינה':'Argentina','אלג׳יריה':'Algeria','אוסטריה':'Austria',
+  'ירדן':'Jordan','פורטוגל':'Portugal','קונגו DR':'Congo DR',
+  'אנגליה':'England','קרואטיה':'Croatia','גאנה':'Ghana',
+  'פנמה':'Panama','אוזבקיסטן':'Uzbekistan','קולומביה':'Colombia',
+};
+
+// Build lookup key from two English names
+function matchKey(a, b) { return [a,b].sort().join('|'); }
+
+let fdMatchMap = {}; // key → match object
+let fdLastFetch = 0;
+let fdRefreshTimer = null;
+
+async function fetchLiveResults(force=false) {
+  const now = Date.now();
+  if (!force && now - fdLastFetch < 55000) return; // throttle 55s
+  fdLastFetch = now;
+  try {
+    const resp = await fetch(FD_URL, { headers:{'X-Auth-Token': FD_KEY} });
+    if (!resp.ok) return;
+    const data = await resp.json();
+    fdMatchMap = {};
+    let hasLive = false;
+    data.matches.forEach(m => {
+      const k = matchKey(m.homeTeam.name, m.awayTeam.name);
+      fdMatchMap[k] = m;
+      if (m.status === 'IN_PLAY' || m.status === 'PAUSED') hasLive = true;
+    });
+    applyResultsToCards();
+    // If there are live matches refresh every 60s, else every 5min
+    clearTimeout(fdRefreshTimer);
+    fdRefreshTimer = setTimeout(() => fetchLiveResults(true), hasLive ? 60000 : 300000);
+    updateApiStatus(true);
+  } catch(e) {
+    updateApiStatus(false);
+    fdRefreshTimer = setTimeout(() => fetchLiveResults(true), 120000);
+  }
+}
+
+function updateApiStatus(ok) {
+  let el = document.getElementById('api-status');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'api-status';
+    el.className = 'api-status';
+    document.querySelector('.footer')?.prepend(el);
+  }
+  const t = new Date().toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'});
+  el.textContent = ok ? `⚽ תוצאות חי · עודכן ${t}` : '⚠️ לא ניתן לטעון תוצאות';
+}
+
+function applyResultsToCards() {
+  document.querySelectorAll('.match-card[data-teams]').forEach(card => {
+    const [heHome, heAway] = card.dataset.teams.split('|');
+    const enHome = TEAM_HE_EN[heHome], enAway = TEAM_HE_EN[heAway];
+    if (!enHome || !enAway) return;
+    const m = fdMatchMap[matchKey(enHome, enAway)];
+    if (!m) return;
+
+    // Determine if home/away are swapped vs API
+    const apiHomeIsHtmlHome = m.homeTeam.name === enHome;
+    const sc = m.score;
+    let homeGoals = apiHomeIsHtmlHome ? sc.fullTime.home : sc.fullTime.away;
+    let awayGoals = apiHomeIsHtmlHome ? sc.fullTime.away : sc.fullTime.home;
+    let homeHT   = apiHomeIsHtmlHome ? sc.halfTime.home : sc.halfTime.away;
+    let awayHT   = apiHomeIsHtmlHome ? sc.halfTime.away : sc.halfTime.home;
+
+    // Remove old score bar if exists
+    card.querySelector('.score-bar')?.remove();
+
+    if (m.status === 'TIMED' || m.status === 'SCHEDULED') return; // not started
+
+    const bar = document.createElement('div');
+    bar.className = 'score-bar';
+
+    if (m.status === 'FINISHED') {
+      bar.classList.add('finished');
+      bar.innerHTML = `
+        <div>
+          <div class="score-label">🏁 הסתיים</div>
+          ${homeHT!=null ? `<div class="score-ht">הפסקה: ${homeHT}:${awayHT}</div>` : ''}
+        </div>
+        <div class="score-main">${homeGoals ?? '-'} : ${awayGoals ?? '-'}</div>
+        <div style="font-size:11px;color:var(--muted);text-align:left">
+          ${getResultLabel(homeGoals, awayGoals, heHome, heAway)}
+        </div>`;
+      // Update card border
+      card.style.borderColor = 'rgba(0,230,118,0.35)';
+
+    } else if (m.status === 'IN_PLAY') {
+      bar.classList.add('live');
+      bar.innerHTML = `
+        <div class="score-label">🔴 חי עכשיו<span class="live-dot"></span></div>
+        <div class="score-main">${homeGoals ?? 0} : ${awayGoals ?? 0}</div>
+        <div style="width:40px"></div>`;
+      card.style.borderColor = 'rgba(255,60,60,0.5)';
+
+    } else if (m.status === 'PAUSED') {
+      bar.classList.add('halftime');
+      bar.innerHTML = `
+        <div class="score-label">🟡 הפסקה</div>
+        <div class="score-main">${homeGoals ?? 0} : ${awayGoals ?? 0}</div>
+        <div style="width:40px"></div>`;
+    } else if (m.status === 'POSTPONED') {
+      bar.classList.add('finished');
+      bar.innerHTML = `<div class="score-label" style="color:#ff8080">⚠️ נדחה</div><div></div><div></div>`;
+    }
+
+    card.appendChild(bar);
+  });
+}
+
+function getResultLabel(h, a, heHome, heAway) {
+  if (h == null || a == null) return '';
+  if (h > a) return `🏆 ${heHome} ניצחה`;
+  if (a > h) return `🏆 ${heAway} ניצחה`;
+  return '🤝 תיקו';
+}
+
+// Start fetching on load
+document.addEventListener('DOMContentLoaded', () => {
+  fetchLiveResults(true);
+  // Also refresh when user returns to tab
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) fetchLiveResults();
+  });
+});
 
 // ─── Channel & Shabbat injection ─────────────────────────────────────────────
 // {free: ערוץ חינם, paid: ערוץ בתשלום}
