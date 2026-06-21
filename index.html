@@ -1757,7 +1757,7 @@ function showTeamView(teamName){
 
 // ─── Live Results from football-data.org ─────────────────────────────────────
 const FD_KEY = '5df3fa3ccc0a47528488253e58002db5';
-const FD_URL = 'https://api.football-data.org/v4/competitions/WC/matches';
+const FD_URL = 'https://api.football-data.org/v4/competitions/WC/matches?season=2026';
 
 // Hebrew name → English name (API)
 const TEAM_HE_EN = {
@@ -1792,8 +1792,19 @@ async function fetchLiveResults(force=false) {
   fdLastFetch = now;
   try {
     const resp = await fetch(FD_URL, { headers:{'X-Auth-Token': FD_KEY} });
-    if (!resp.ok) return;
+    if (!resp.ok) {
+      let msg = '';
+      try { const j = await resp.json(); msg = j.message || ''; } catch(e) {}
+      console.warn('football-data API error:', resp.status, msg);
+      updateApiStatus(false, resp.status + (msg ? ' · ' + msg : ''));
+      fdRefreshTimer = setTimeout(() => fetchLiveResults(true), 300000);
+      return;
+    }
     const data = await resp.json();
+    if (!data.matches || !data.matches.length) {
+      updateApiStatus(false, 'אין נתונים');
+      return;
+    }
     fdMatchMap = {};
     let hasLive = false;
     data.matches.forEach(m => {
@@ -1802,17 +1813,17 @@ async function fetchLiveResults(force=false) {
       if (m.status === 'IN_PLAY' || m.status === 'PAUSED') hasLive = true;
     });
     applyResultsToCards();
-    // If there are live matches refresh every 60s, else every 5min
     clearTimeout(fdRefreshTimer);
     fdRefreshTimer = setTimeout(() => fetchLiveResults(true), hasLive ? 60000 : 300000);
     updateApiStatus(true);
   } catch(e) {
-    updateApiStatus(false);
+    console.warn('fetchLiveResults error:', e);
+    updateApiStatus(false, 'שגיאת רשת');
     fdRefreshTimer = setTimeout(() => fetchLiveResults(true), 120000);
   }
 }
 
-function updateApiStatus(ok) {
+function updateApiStatus(ok, detail) {
   let el = document.getElementById('api-status');
   if (!el) {
     el = document.createElement('div');
@@ -1821,7 +1832,7 @@ function updateApiStatus(ok) {
     document.querySelector('.footer')?.prepend(el);
   }
   const t = new Date().toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'});
-  el.textContent = ok ? `⚽ תוצאות חי · עודכן ${t}` : '⚠️ לא ניתן לטעון תוצאות';
+  el.textContent = ok ? `⚽ תוצאות חי · עודכן ${t}` : `⚠️ לא ניתן לטעון תוצאות${detail ? ' · ' + detail : ''}`;
 }
 
 function applyResultsToCards() {
@@ -1892,10 +1903,71 @@ function getResultLabel(h, a, heHome, heAway) {
   return '🤝 תיקו';
 }
 
+// ─── Scroll to nearest match ─────────────────────────────────────────────────
+function getIsraelDate() {
+  // Israel is UTC+3 in summer (IDT)
+  const now = new Date();
+  return new Date(now.getTime() + (now.getTimezoneOffset() + 180) * 60000);
+}
+
+function scrollToNearestMatch() {
+  if (!document.getElementById('tab-group')?.classList.contains('active')) return;
+  const il = getIsraelDate();
+  const todayY = il.getFullYear(), todayM = il.getMonth()+1, todayD = il.getDate();
+  const todayMs = new Date(todayY, todayM-1, todayD).getTime();
+
+  let bestGroup = null, bestDiff = Infinity, todayGroup = null;
+
+  document.querySelectorAll('#tab-group .day-group').forEach(group => {
+    const mtsub = group.querySelector('.mtsub');
+    if (!mtsub) return;
+    const parts = mtsub.textContent.trim().replace(/\.2026/,'').split('.');
+    if (parts.length < 2) return;
+    const d = parseInt(parts[0]), m = parseInt(parts[1]);
+    if (isNaN(d)||isNaN(m)) return;
+    const groupMs = new Date(2026, m-1, d).getTime();
+    const diff = groupMs - todayMs;
+    if (diff === 0) todayGroup = group;
+    if (diff >= 0 && diff < bestDiff) { bestDiff = diff; bestGroup = group; }
+  });
+
+  const target = todayGroup || bestGroup;
+  if (target) {
+    setTimeout(() => {
+      const y = target.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+    }, 350);
+  }
+}
+
+// ─── Floating "Today" button ─────────────────────────────────────────────────
+function addTodayButton() {
+  const btn = document.createElement('button');
+  btn.id = 'today-fab';
+  btn.innerHTML = '📍 היום';
+  btn.style.cssText = [
+    'position:fixed','bottom:22px','left:16px','z-index:999',
+    'background:linear-gradient(135deg,#1a3a1a,#223322)',
+    'border:1px solid rgba(255,215,0,0.35)','color:var(--gold)',
+    'font-family:Heebo,sans-serif','font-size:13px','font-weight:700',
+    'padding:8px 16px','border-radius:50px','cursor:pointer',
+    'box-shadow:0 4px 16px rgba(0,0,0,0.5)','letter-spacing:1px',
+    'transition:opacity 0.2s'
+  ].join(';');
+  btn.addEventListener('click', () => {
+    // Switch to group tab if needed
+    const groupTab = [...document.querySelectorAll('.tab-btn')].find(b => b.textContent.includes('שלב הבתים'));
+    if (groupTab && !groupTab.classList.contains('active')) groupTab.click();
+    scrollToNearestMatch();
+  });
+  document.body.appendChild(btn);
+}
+
 // Start fetching on load
 document.addEventListener('DOMContentLoaded', () => {
   fetchLiveResults(true);
-  // Also refresh when user returns to tab
+  scrollToNearestMatch();
+  addTodayButton();
   document.addEventListener('visibilitychange', () => {
     if (!document.hidden) fetchLiveResults();
   });
