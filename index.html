@@ -1759,7 +1759,7 @@ function showTeamView(teamName){
 const FD_KEY = '5df3fa3ccc0a47528488253e58002db5';
 const FD_URL = 'https://api.football-data.org/v4/competitions/WC/matches?season=2026';
 
-// Hebrew name → English name (API)
+// Hebrew → our standard English name
 const TEAM_HE_EN = {
   'מקסיקו':'Mexico','דרום אפריקה':'South Africa','קוריאה הד׳':'South Korea',
   'צ׳כיה':'Czechia','קנדה':'Canada','בוסניה':'Bosnia-Herzegovina',
@@ -1773,30 +1773,64 @@ const TEAM_HE_EN = {
   'מצרים':'Egypt','ערב הסעודית':'Saudi Arabia','אורוגוואי':'Uruguay',
   'איראן':'Iran','ניו זילנד':'New Zealand','צרפת':'France',
   'סנגל':'Senegal','עיראק':'Iraq','נורבגיה':'Norway',
-  'ארגנטינה':'Argentina','אלג׳יריה':'Algeria','אוסטריה':'Austria',
+  'ארגנטינה':'Argentina',"אלג׳יריה":'Algeria','אוסטריה':'Austria',
   'ירדן':'Jordan','פורטוגל':'Portugal','קונגו DR':'Congo DR',
   'אנגליה':'England','קרואטיה':'Croatia','גאנה':'Ghana',
   'פנמה':'Panama','אוזבקיסטן':'Uzbekistan','קולומביה':'Colombia',
 };
 
-// Build lookup key from two English names
+// football-data.org API may return different names — normalize them to our standard
+function normStr(s) {
+  return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]/g,' ').replace(/\s+/g,' ').trim();
+}
+
+// Build a normalized reverse-lookup: normStr(our-english) → our-english
+let _normToStd = null;
+function getNormToStd() {
+  if (_normToStd) return _normToStd;
+  _normToStd = {};
+  Object.values(TEAM_HE_EN).forEach(en => { _normToStd[normStr(en)] = en; });
+  // Extra aliases for common football-data.org variations
+  const extra = {
+    'korea republic':'South Korea', 'republic of korea':'South Korea',
+    'cote d ivoire':'Ivory Coast', 'ivory coast':'Ivory Coast',
+    'bosnia & herzegovina':'Bosnia-Herzegovina',
+    'bosnia and herzegovina':'Bosnia-Herzegovina',
+    'cape verde':'Cape Verde Islands',
+    'dr congo':'Congo DR', 'congo dr':'Congo DR', 'congo democratic republic':'Congo DR',
+    'curacao':'Curaçao',
+    'usa':'United States', 'us':'United States',
+    'czechia':'Czechia','czech republic':'Czechia',
+    'new zealand':'New Zealand',
+  };
+  Object.entries(extra).forEach(([k,v]) => { _normToStd[k] = v; });
+  return _normToStd;
+}
+
+// Resolve an API team name → our standard English name
+function resolveApiName(apiName) {
+  if (!apiName) return apiName;
+  const n2s = getNormToStd();
+  return n2s[normStr(apiName)] || apiName;
+}
+
 function matchKey(a, b) { return [a,b].sort().join('|'); }
 
-let fdMatchMap = {}; // key → match object
+let fdMatchMap = {};
 let fdLastFetch = 0;
 let fdRefreshTimer = null;
 
 async function fetchLiveResults(force=false) {
   const now = Date.now();
-  if (!force && now - fdLastFetch < 55000) return; // throttle 55s
+  if (!force && now - fdLastFetch < 55000) return;
   fdLastFetch = now;
   try {
     const resp = await fetch(FD_URL, { headers:{'X-Auth-Token': FD_KEY} });
     if (!resp.ok) {
       let msg = '';
       try { const j = await resp.json(); msg = j.message || ''; } catch(e) {}
-      console.warn('football-data API error:', resp.status, msg);
-      updateApiStatus(false, resp.status + (msg ? ' · ' + msg : ''));
+      console.warn('[WC] API error:', resp.status, msg);
+      updateApiStatus(false, resp.status + (msg ? ' · ' + msg.substring(0,60) : ''));
       fdRefreshTimer = setTimeout(() => fetchLiveResults(true), 300000);
       return;
     }
@@ -1808,16 +1842,19 @@ async function fetchLiveResults(force=false) {
     fdMatchMap = {};
     let hasLive = false;
     data.matches.forEach(m => {
-      const k = matchKey(m.homeTeam.name, m.awayTeam.name);
-      fdMatchMap[k] = m;
+      const rHome = resolveApiName(m.homeTeam.name);
+      const rAway = resolveApiName(m.awayTeam.name);
+      m._rHome = rHome; m._rAway = rAway;
+      fdMatchMap[matchKey(rHome, rAway)] = m;
       if (m.status === 'IN_PLAY' || m.status === 'PAUSED') hasLive = true;
     });
+    console.log('[WC] Loaded', data.matches.length, 'matches from API');
     applyResultsToCards();
     clearTimeout(fdRefreshTimer);
     fdRefreshTimer = setTimeout(() => fetchLiveResults(true), hasLive ? 60000 : 300000);
-    updateApiStatus(true);
+    updateApiStatus(true, data.matches.length);
   } catch(e) {
-    console.warn('fetchLiveResults error:', e);
+    console.warn('[WC] fetchLiveResults error:', e);
     updateApiStatus(false, 'שגיאת רשת');
     fdRefreshTimer = setTimeout(() => fetchLiveResults(true), 120000);
   }
@@ -1832,29 +1869,36 @@ function updateApiStatus(ok, detail) {
     document.querySelector('.footer')?.prepend(el);
   }
   const t = new Date().toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'});
-  el.textContent = ok ? `⚽ תוצאות חי · עודכן ${t}` : `⚠️ לא ניתן לטעון תוצאות${detail ? ' · ' + detail : ''}`;
+  if (ok) {
+    const cnt = typeof detail === 'number' ? ` · ${detail} משחקים` : '';
+    el.textContent = `⚽ תוצאות חי${cnt} · עודכן ${t}`;
+    el.style.color = '';
+  } else {
+    el.textContent = `⚠️ שגיאה בטעינת תוצאות${detail ? ': ' + detail : ''}`;
+    el.style.color = '#ff8080';
+  }
 }
 
 function applyResultsToCards() {
+  let matched = 0;
   document.querySelectorAll('.match-card[data-teams]').forEach(card => {
     const [heHome, heAway] = card.dataset.teams.split('|');
     const enHome = TEAM_HE_EN[heHome], enAway = TEAM_HE_EN[heAway];
     if (!enHome || !enAway) return;
     const m = fdMatchMap[matchKey(enHome, enAway)];
     if (!m) return;
+    matched++;
 
-    // Determine if home/away are swapped vs API
-    const apiHomeIsHtmlHome = m.homeTeam.name === enHome;
+    // Were home/away swapped vs API?
+    const apiHomeIsHtmlHome = (m._rHome || m.homeTeam.name) === enHome;
     const sc = m.score;
-    let homeGoals = apiHomeIsHtmlHome ? sc.fullTime.home : sc.fullTime.away;
-    let awayGoals = apiHomeIsHtmlHome ? sc.fullTime.away : sc.fullTime.home;
-    let homeHT   = apiHomeIsHtmlHome ? sc.halfTime.home : sc.halfTime.away;
-    let awayHT   = apiHomeIsHtmlHome ? sc.halfTime.away : sc.halfTime.home;
+    let homeGoals = apiHomeIsHtmlHome ? sc.fullTime.home  : sc.fullTime.away;
+    let awayGoals = apiHomeIsHtmlHome ? sc.fullTime.away  : sc.fullTime.home;
+    let homeHT    = apiHomeIsHtmlHome ? sc.halfTime.home  : sc.halfTime.away;
+    let awayHT    = apiHomeIsHtmlHome ? sc.halfTime.away  : sc.halfTime.home;
 
-    // Remove old score bar if exists
     card.querySelector('.score-bar')?.remove();
-
-    if (m.status === 'TIMED' || m.status === 'SCHEDULED') return; // not started
+    if (m.status === 'TIMED' || m.status === 'SCHEDULED') return;
 
     const bar = document.createElement('div');
     bar.className = 'score-bar';
@@ -1867,12 +1911,8 @@ function applyResultsToCards() {
           ${homeHT!=null ? `<div class="score-ht">הפסקה: ${homeHT}:${awayHT}</div>` : ''}
         </div>
         <div class="score-main">${homeGoals ?? '-'} : ${awayGoals ?? '-'}</div>
-        <div style="font-size:11px;color:var(--muted);text-align:left">
-          ${getResultLabel(homeGoals, awayGoals, heHome, heAway)}
-        </div>`;
-      // Update card border
+        <div style="font-size:11px;color:var(--muted);text-align:left">${getResultLabel(homeGoals,awayGoals,heHome,heAway)}</div>`;
       card.style.borderColor = 'rgba(0,230,118,0.35)';
-
     } else if (m.status === 'IN_PLAY') {
       bar.classList.add('live');
       bar.innerHTML = `
@@ -1880,7 +1920,6 @@ function applyResultsToCards() {
         <div class="score-main">${homeGoals ?? 0} : ${awayGoals ?? 0}</div>
         <div style="width:40px"></div>`;
       card.style.borderColor = 'rgba(255,60,60,0.5)';
-
     } else if (m.status === 'PAUSED') {
       bar.classList.add('halftime');
       bar.innerHTML = `
@@ -1888,12 +1927,11 @@ function applyResultsToCards() {
         <div class="score-main">${homeGoals ?? 0} : ${awayGoals ?? 0}</div>
         <div style="width:40px"></div>`;
     } else if (m.status === 'POSTPONED') {
-      bar.classList.add('finished');
       bar.innerHTML = `<div class="score-label" style="color:#ff8080">⚠️ נדחה</div><div></div><div></div>`;
     }
-
     card.appendChild(bar);
   });
+  console.log('[WC] applyResultsToCards: matched', matched, 'cards');
 }
 
 function getResultLabel(h, a, heHome, heAway) {
